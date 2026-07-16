@@ -5,19 +5,17 @@ import java.sql.DriverManager;
 
 public class DBConnection {
 
-    private static final String URL =
-            "jdbc:mysql://localhost:3306/ecommerce_db";
-
-    private static final String USER = "root";
-    private static final String PASSWORD = "Asif@MySQL#2026";
-
     public static Connection getConnection() {
 
         try {
+
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            return DriverManager.getConnection(
-                    URL, USER, PASSWORD);
+            String url = System.getenv("DB_URL");
+            String user = System.getenv("DB_USER");
+            String password = System.getenv("DB_PASSWORD");
+
+            return DriverManager.getConnection(url, user, password);
 
         } catch (Exception e) {
             e.printStackTrace();
