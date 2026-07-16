@@ -8,19 +8,22 @@ pageEncoding="UTF-8"%>
 <title>E-Commerce Store</title>
 <link rel="stylesheet" href="css/index.css">
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="css/security.css">
 
 </head>
+
+<body>
 <div class="floating-icons">
     <i class="fas fa-shopping-cart"></i>
     <i class="fas fa-box"></i>
     <i class="fas fa-credit-card"></i>
     <i class="fas fa-gift"></i>
 </div>
-<body>
-
 <section class="hero">
 
     <div class="hero-text">
