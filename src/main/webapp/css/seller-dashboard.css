@@ -208,7 +208,24 @@ h2{
     border-radius:10px;
     padding:6px;
 }
+.view-btn{
+    background:#2563eb;
+    color:#fff;
+    text-decoration:none;
+    padding:12px 22px;
+    border-radius:10px;
+    font-weight:600;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    transition:.3s;
+}
 
+.view-btn:hover{
+    background:#1d4ed8;
+    transform:translateY(-2px);
+    box-shadow:0 8px 20px rgba(37,99,235,.3);
+}
 .price{
     color:#16a34a;
     font-size:18px;

@@ -36,6 +36,7 @@ href="css/seller-dashboard.css">
 </head>
 
 <body>
+    
 
 <div class="dashboard-header">
 
@@ -66,10 +67,14 @@ href="css/seller-dashboard.css">
             <i class="fa-solid fa-plus"></i>
             Add Product
         </a>
-
+                    
         <a href="sellerLogout" class="logout-btn">
             <i class="fa-solid fa-right-from-bracket"></i>
             Logout
+        </a>
+        <a href="products.jsp" class="view-btn">
+        <i class="fa-solid fa-eye"></i>
+         Check Your Products in Online store
         </a>
 
     </div>
