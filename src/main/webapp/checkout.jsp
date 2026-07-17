@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 
+
 <%@ page import="com.ecommerce.model.Product" %>
 <%@ page import="java.util.List" %>
 
@@ -15,6 +16,27 @@ List<Product> cartProducts =
 (List<Product>)session.getAttribute("cartItems");
 
 
+// TOTAL CALCULATION
+double total = 0;
+
+
+if(product != null){
+
+    total = product.getPrice();
+
+}
+else if(cartProducts != null){
+
+    for(Product p : cartProducts){
+
+        total += p.getPrice();
+
+    }
+
+}
+
+
+// CHECK EMPTY
 if(product == null && cartProducts == null){
 
     response.sendRedirect("home.jsp");
@@ -23,7 +45,25 @@ if(product == null && cartProducts == null){
 }
 
 %>
+<%
+String productIds = "";
 
+if(product != null){
+
+    productIds = String.valueOf(product.getId());
+
+}
+else if(cartProducts != null){
+
+    for(Product p : cartProducts){
+
+        productIds += p.getId() + ",";
+
+    }
+
+}
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -125,9 +165,30 @@ else if(cartProducts != null){
 
 %>
 <form action="PlaceOrderServlet" method="post">
-    <input type="hidden"
-     name="productId"
-    value="<%= product != null ? product.getId() : "" %>">
+   <%
+if(product != null){
+%>
+
+<input type="hidden"
+name="productId"
+value="<%=product.getId()%>">
+
+<%
+}
+else if(cartProducts != null){
+
+    for(Product p : cartProducts){
+%>
+
+<input type="hidden"
+name="productId"
+value="<%=p.getId()%>">
+
+<%
+    }
+
+}
+%>
 
     <label>Full Name</label><br>
     <input type="text"
@@ -257,8 +318,8 @@ function payNow() {
     		           '<input type="hidden" name="phone" value="' +
                         phone + '">' +
 
-                        '<input type="hidden" name="productId" value="<%= product != null ? product.getId() : "" %>">';
-    		        document.body.appendChild(form);
+                      '<input type="hidden" name="productId" value="<%=productIds%>">'; 
+   		               document.body.appendChild(form);
     		        form.submit();
     		    }
     		};
