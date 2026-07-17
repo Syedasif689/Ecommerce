@@ -2,31 +2,23 @@
 pageEncoding="UTF-8"%>
 
 <%@ page import="com.ecommerce.model.Product" %>
+<%@ page import="java.util.List" %>
+
 
 <%
 
-Product buyProduct =
+Product product =
 (Product)session.getAttribute("buyNowProduct");
+
 
 List<Product> cartProducts =
 (List<Product>)session.getAttribute("cartItems");
 
 
-if(product == null){
+if(product == null && cartProducts == null){
 
     response.sendRedirect("home.jsp");
     return;
-
-}
-
-
-Double total =
-(Double)session.getAttribute("cartTotal");
-
-
-if(total == null){
-
-    total = 0.0;
 
 }
 
@@ -44,6 +36,15 @@ if(total == null){
 <h2>Order Summary</h2>
 
 <h3>Total Amount: ₹<%= total %></h3>
+
+
+<%
+
+if(product != null){
+
+%>
+
+
 <div class="checkout-product">
 
     <img src="<%= product.getImageUrl() %>">
@@ -52,80 +53,81 @@ if(total == null){
 
         <h2><%= product.getName() %></h2>
 
-        <p><%= product.getDescription() %></p>
+        <p>
+            <%= product.getDescription() %>
+        </p>
+
 
         <p>
-
             <strong>Shop :</strong>
-
             <%= product.getShopName() %>
-
         </p>
+
 
         <p>
-
             <strong>Seller :</strong>
-
             <%= product.getSellerName() %>
-
         </p>
+
 
         <h3>
-
             ₹<%= product.getPrice() %>
-
         </h3>
+
 
     </div>
 
 </div>
+
+
 <%
+
+}
+
 else if(cartProducts != null){
 
-for(Product p : cartProducts){
+    for(Product p : cartProducts){
 
 %>
 
 
 <div class="checkout-product">
 
-<img src="<%=p.getImageUrl()%>">
+    <img src="<%=p.getImageUrl()%>">
+
+    <div>
+
+        <h2>
+            <%=p.getName()%>
+        </h2>
 
 
-<div>
-
-<h2>
-<%=p.getName()%>
-</h2>
+        <p>
+            <%=p.getDescription()%>
+        </p>
 
 
-<p>
-<%=p.getDescription()%>
-</p>
+        <h3>
+            ₹<%=p.getPrice()%>
+        </h3>
 
 
-<h3>
-₹<%=p.getPrice()%>
-</h3>
-
-
-</div>
-
+    </div>
 
 </div>
 
 
 <%
 
-}
+    }
 
 }
 
 %>
 <form action="PlaceOrderServlet" method="post">
     <input type="hidden"
-       name="productId"
-       value="<%= product.getId() %>">
+     name="productId"
+    value="<%= product != null ? product.getId() : "" %>">
 
     <label>Full Name</label><br>
     <input type="text"
@@ -255,7 +257,7 @@ function payNow() {
     		           '<input type="hidden" name="phone" value="' +
                         phone + '">' +
 
-                        '<input type="hidden" name="productId" value="<%= product.getId() %>">';
+                        '<input type="hidden" name="productId" value="<%= product != null ? product.getId() : "" %>">';
     		        document.body.appendChild(form);
     		        form.submit();
     		    }
