@@ -147,7 +147,10 @@ public class ProductDAO {
         try (
             Connection con = DBConnection.getConnection();
             PreparedStatement ps =
-                    con.prepareStatement("SELECT * FROM products WHERE id = ?")
+                    con.prepareStatement("SELECT p.*, s.shop_name, s.seller_name " +
+                                          "FROM products p " +
+                                          "JOIN sellers s ON p.seller_id = s.seller_id " +
+                                          "WHERE p.id = ?")
         ) {
 
             ps.setInt(1, productId);
@@ -165,6 +168,8 @@ public class ProductDAO {
 
                     product.setSellerId(rs.getInt("seller_id"));
                     product.setImageUrl(rs.getString("image_url"));
+                    product.setShopName(rs.getString("shop_name"));
+                    product.setSellerName(rs.getString("seller_name"));
                 }
             }
 

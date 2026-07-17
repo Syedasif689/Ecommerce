@@ -162,8 +162,8 @@ href="<%= request.getContextPath() %>/css/security.css">
 for(Product product : products){
 %>
 
-<div class="product-card">
-
+<div class="product-card"
+onclick="location.href='product-details.jsp?id=<%= product.getId() %>'">
     <img src="<%= product.getImageUrl() %>" width="200" height="200">
 
     <h3><%= product.getName() %></h3>
@@ -172,7 +172,9 @@ for(Product product : products){
 
     <p><%= product.getDescription() %></p>
 
-    <a href="products.jsp">View Product</a>
+    <a href="product-details.jsp?id=<%= product.getId() %>">
+    View Product
+</a>
 
 </div>
 

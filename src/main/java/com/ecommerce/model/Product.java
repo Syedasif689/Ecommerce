@@ -6,7 +6,8 @@ public class Product {
     private String name;
     private double price;
     private String description;
-
+    private String shopName;
+    private String sellerName;
     // Cloudinary image URL
     private String imageUrl;
 
@@ -38,7 +39,7 @@ public class Product {
         this.imageUrl = imageUrl;
         this.sellerId = sellerId;
     }
-
+     
     public int getId() {
         return id;
     }
@@ -86,4 +87,19 @@ public class Product {
     public void setSellerId(int sellerId) {
         this.sellerId = sellerId;
     }
+    public String getShopName() {
+    return shopName;
+}
+
+public void setShopName(String shopName) {
+    this.shopName = shopName;
+}
+
+public String getSellerName() {
+    return sellerName;
+}
+
+public void setSellerName(String sellerName) {
+    this.sellerName = sellerName;
+}
 }

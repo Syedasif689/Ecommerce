@@ -2,6 +2,7 @@
 <%@ page import="com.ecommerce.model.Product" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+
 <%
 List<Product> products =
 (List<Product>) request.getAttribute("products");
@@ -9,78 +10,121 @@ List<Product> products =
 
 <!DOCTYPE html>
 <html>
+
 <head>
+
 <meta charset="UTF-8">
-<title>Search Results</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-body{
-    font-family:Arial,sans-serif;
-    margin:20px;
-}
+<title>Search Results</title>
 
-.products{
-    display:flex;
-    flex-wrap:wrap;
-    gap:20px;
-}
+<link rel="stylesheet" href="css/search-result.css">
 
-.product-card{
-    width:250px;
-    border:1px solid #ddd;
-    border-radius:10px;
-    padding:15px;
-}
-
-.product-card img{
-    width:100%;
-    height:220px;
-    object-fit:cover;
-    border-radius:8px;
-}
-
-.price{
-    color:green;
-    font-weight:bold;
-}
-</style>
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
 </head>
+
 <body>
 
-<h2>Search Results</h2>
+<div class="container">
+
+    <div class="header">
+
+        <div>
+
+            <h1>
+                <i class="fa-solid fa-magnifying-glass"></i>
+                Search Results
+            </h1>
+
+            <p>
+                Browse products matching your search.
+            </p>
+
+        </div>
+
+        <a href="home.jsp" class="back-btn">
+
+            <i class="fa-solid fa-house"></i>
+
+            Home
+
+        </a>
+
+    </div>
+
+<%
+if(products != null && !products.isEmpty()){
+%>
 
 <div class="products">
 
 <%
-if(products != null && !products.isEmpty()){
-
-    for(Product product : products){
+for(Product product : products){
 %>
 
 <div class="product-card">
 
     <img src="<%= product.getImageUrl() %>">
 
-    <h3><%= product.getName() %></h3>
+    <div class="card-content">
 
-    <p class="price">
-        ₹<%= product.getPrice() %>
-    </p>
+        <h3>
+            <%= product.getName() %>
+        </h3>
 
-    <p>
-        <%= product.getDescription() %>
-    </p>
+        <div class="price">
+
+            ₹<%= product.getPrice() %>
+
+        </div>
+
+        <p>
+            <%= product.getDescription() %>
+        </p>
+
+        <a href="products.jsp" class="view-btn">
+
+            <i class="fa-solid fa-eye"></i>
+
+            View Product
+
+        </a>
+
+    </div>
 
 </div>
 
 <%
-    }
+}
+%>
+
+</div>
+
+<%
 }else{
 %>
 
-<h3>No products found.</h3>
+<div class="empty-state">
+
+    <i class="fa-solid fa-box-open"></i>
+
+    <h2>No Products Found</h2>
+
+    <p>
+
+        Sorry! We couldn't find any matching products.
+
+    </p>
+
+    <a href="products.jsp">
+
+        Browse All Products
+
+    </a>
+
+</div>
 
 <%
 }

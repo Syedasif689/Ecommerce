@@ -12,6 +12,8 @@ pageEncoding="UTF-8"%>
 <title>Customer Registration</title>
 
 <link rel="stylesheet" href="css/register.css">
+<link rel="stylesheet" href="css/security.css">
+
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
