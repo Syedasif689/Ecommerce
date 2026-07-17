@@ -116,7 +116,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
             <input
                 type="password"
                 name="password"
-                placeholder="Password"
+                placeholder="Create a Password"
                 required>
 
             <button type="submit">
