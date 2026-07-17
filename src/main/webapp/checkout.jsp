@@ -8,6 +8,18 @@ if(total == null){
     total = 0.0;
 }
 %>
+<%@ page import="com.ecommerce.model.Product" %>
+
+<%
+Product product =
+(Product)session.getAttribute("buyNowProduct");
+
+Double total =
+(Double)session.getAttribute("cartTotal");
+
+if(total == null)
+    total = 0.0;
+%>
 
 <!DOCTYPE html>
 <html>
@@ -21,8 +33,45 @@ if(total == null){
 <h2>Order Summary</h2>
 
 <h3>Total Amount: ₹<%= total %></h3>
+<div class="checkout-product">
 
+    <img src="<%= product.getImageUrl() %>">
+
+    <div>
+
+        <h2><%= product.getName() %></h2>
+
+        <p><%= product.getDescription() %></p>
+
+        <p>
+
+            <strong>Shop :</strong>
+
+            <%= product.getShopName() %>
+
+        </p>
+
+        <p>
+
+            <strong>Seller :</strong>
+
+            <%= product.getSellerName() %>
+
+        </p>
+
+        <h3>
+
+            ₹<%= product.getPrice() %>
+
+        </h3>
+
+    </div>
+
+</div>
 <form action="PlaceOrderServlet" method="post">
+    <input type="hidden"
+       name="productId"
+       value="<%= product.getId() %>">
 
     <label>Full Name</label><br>
     <input type="text"
@@ -133,6 +182,7 @@ function payNow() {
     		        form.action = "VerifyPaymentServlet";
 
     		        form.innerHTML =
+                        
     		            '<input type="hidden" name="paymentId" value="' +
     		            response.razorpay_payment_id + '">' +
 
@@ -151,6 +201,7 @@ function payNow() {
     		            '<input type="hidden" name="phone" value="' +
     		            phone + '">';
 
+                        '<input type="hidden" name="productId" value="<%= product.getId() %>">' +               
     		        document.body.appendChild(form);
     		        form.submit();
     		    }

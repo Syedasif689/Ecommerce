@@ -127,10 +127,10 @@ href="css/product-details.css">
 
             </a>
 
-            <a href="checkout.jsp?productId=<%= product.getId() %>"
-               class="buy-btn">
+            <a href="BuyNowServlet?productId=<%= product.getId() %>"
+             class="buy-btn">
 
-                <i class="fa-solid fa-bolt"></i>
+             <i class="fa-solid fa-bolt"></i>
 
                 Buy Now
 
