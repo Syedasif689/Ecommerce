@@ -1,0 +1,449 @@
+@charset "UTF-8";
+
+/* Reset */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+
+    background:linear-gradient(135deg,#eef5ff,#ffffff);
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:25px;
+
+}
+
+/* ===========================
+   Layout
+=========================== */
+
+.add-wrapper{
+
+    width:100%;
+
+    max-width:1250px;
+
+    background:#fff;
+
+    border-radius:28px;
+
+    overflow:hidden;
+
+    display:grid;
+
+    grid-template-columns:1.1fr 1fr;
+
+    box-shadow:0 20px 50px rgba(0,0,0,.12);
+
+}
+
+/* ===========================
+   Left Section
+=========================== */
+
+.image-section{
+
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+
+    color:white;
+
+    padding:55px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+}
+
+.image-section h1{
+
+    font-size:42px;
+
+    margin-bottom:18px;
+
+}
+
+.image-section p{
+
+    font-size:17px;
+
+    line-height:1.7;
+
+    max-width:470px;
+
+    opacity:.95;
+
+}
+
+.image-section img{
+
+    width:100%;
+
+    max-width:430px;
+
+    margin:35px 0;
+
+    border-radius:20px;
+
+}
+
+/* ===========================
+   Features
+=========================== */
+
+.features{
+
+    width:100%;
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:18px;
+
+    margin-top:10px;
+
+}
+
+.feature{
+
+    background:rgba(255,255,255,.12);
+
+    border:1px solid rgba(255,255,255,.15);
+
+    border-radius:14px;
+
+    padding:16px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+.feature i{
+
+    font-size:22px;
+
+}
+
+.feature span{
+
+    font-size:15px;
+
+    font-weight:600;
+
+}
+
+/* ===========================
+   Form
+=========================== */
+
+.form-card{
+
+    padding:55px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+}
+
+.form-card h2{
+
+    text-align:center;
+
+    color:#1e293b;
+
+    font-size:34px;
+
+    margin-bottom:35px;
+
+}
+
+form{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+}
+
+/* ===========================
+   Inputs
+=========================== */
+
+.input-box,
+.file-box{
+
+    display:flex;
+
+    align-items:center;
+
+    background:#f8fafc;
+
+    border:1px solid #dbeafe;
+
+    border-radius:14px;
+
+    padding:0 18px;
+
+}
+
+.input-box i,
+.file-box i{
+
+    color:#2563eb;
+
+    font-size:18px;
+
+    margin-right:12px;
+
+}
+
+.input-box input{
+
+    width:100%;
+
+    border:none;
+
+    background:none;
+
+    outline:none;
+
+    padding:16px 0;
+
+    font-size:15px;
+
+}
+
+.textarea{
+
+    align-items:flex-start;
+
+}
+
+.textarea i{
+
+    margin-top:18px;
+
+}
+
+textarea{
+
+    width:100%;
+
+    border:none;
+
+    outline:none;
+
+    resize:none;
+
+    background:none;
+
+    min-height:120px;
+
+    padding:16px 0;
+
+    font-size:15px;
+
+}
+
+.file-box{
+
+    padding:16px 18px;
+
+}
+
+.file-box input{
+
+    width:100%;
+
+    border:none;
+
+    background:none;
+
+}
+
+/* ===========================
+   Button
+=========================== */
+
+button{
+
+    margin-top:10px;
+
+    border:none;
+
+    background:#2563eb;
+
+    color:white;
+
+    padding:16px;
+
+    border-radius:14px;
+
+    font-size:17px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+button:hover{
+
+    background:#1d4ed8;
+
+    transform:translateY(-2px);
+
+    box-shadow:0 12px 25px rgba(37,99,235,.3);
+
+}
+
+button i{
+
+    margin-right:8px;
+
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media(max-width:950px){
+
+    .add-wrapper{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .image-section{
+
+        padding:40px 25px;
+
+    }
+
+    .image-section h1{
+
+        font-size:32px;
+
+    }
+
+    .image-section img{
+
+        max-width:320px;
+
+    }
+
+    .form-card{
+
+        padding:35px 25px;
+
+    }
+
+}
+
+@media(max-width:600px){
+
+    body{
+
+        padding:12px;
+
+    }
+
+    .add-wrapper{
+
+        border-radius:18px;
+
+    }
+
+    .image-section{
+
+        padding:30px 20px;
+
+    }
+
+    .image-section h1{
+
+        font-size:28px;
+
+    }
+
+    .image-section p{
+
+        font-size:14px;
+
+    }
+
+    .image-section img{
+
+        max-width:260px;
+
+    }
+
+    .features{
+
+        grid-template-columns:1fr 1fr;
+
+        gap:12px;
+
+    }
+
+    .feature{
+
+        padding:12px;
+
+        flex-direction:column;
+
+        text-align:center;
+
+    }
+
+    .feature span{
+
+        font-size:13px;
+
+    }
+
+    .form-card{
+
+        padding:25px 18px;
+
+    }
+
+    .form-card h2{
+
+        font-size:28px;
+
+    }
+
+}
