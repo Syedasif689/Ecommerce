@@ -1,24 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 
-<%
-Double total = (Double) session.getAttribute("cartTotal");
-
-if(total == null){
-    total = 0.0;
-}
-%>
 <%@ page import="com.ecommerce.model.Product" %>
 
 <%
+
 Product product =
 (Product)session.getAttribute("buyNowProduct");
+
+
+if(product == null){
+
+    response.sendRedirect("home.jsp");
+    return;
+
+}
+
 
 Double total =
 (Double)session.getAttribute("cartTotal");
 
-if(total == null)
+
+if(total == null){
+
     total = 0.0;
+
+}
+
 %>
 
 <!DOCTYPE html>
