@@ -5,8 +5,11 @@ pageEncoding="UTF-8"%>
 
 <%
 
-Product product =
+Product buyProduct =
 (Product)session.getAttribute("buyNowProduct");
+
+List<Product> cartProducts =
+(List<Product>)session.getAttribute("cartItems");
 
 
 if(product == null){
@@ -76,6 +79,49 @@ if(total == null){
     </div>
 
 </div>
+<%
+else if(cartProducts != null){
+
+for(Product p : cartProducts){
+
+%>
+
+
+<div class="checkout-product">
+
+<img src="<%=p.getImageUrl()%>">
+
+
+<div>
+
+<h2>
+<%=p.getName()%>
+</h2>
+
+
+<p>
+<%=p.getDescription()%>
+</p>
+
+
+<h3>
+₹<%=p.getPrice()%>
+</h3>
+
+
+</div>
+
+
+</div>
+
+
+<%
+
+}
+
+}
+
+%>
 <form action="PlaceOrderServlet" method="post">
     <input type="hidden"
        name="productId"
@@ -206,10 +252,10 @@ function payNow() {
     		            '<input type="hidden" name="address" value="' +
     		            address + '">' +
 
-    		            '<input type="hidden" name="phone" value="' +
-    		            phone + '">';
+    		           '<input type="hidden" name="phone" value="' +
+                        phone + '">' +
 
-                        '<input type="hidden" name="productId" value="<%= product.getId() %>">' +               
+                        '<input type="hidden" name="productId" value="<%= product.getId() %>">';
     		        document.body.appendChild(form);
     		        form.submit();
     		    }

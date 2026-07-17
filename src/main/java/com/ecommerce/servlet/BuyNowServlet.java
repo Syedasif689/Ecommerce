@@ -38,7 +38,7 @@ public class BuyNowServlet extends HttpServlet {
 
         session.setAttribute("buyNowProduct", product);
 
-        session.setAttribute("cartTotal", product.getPrice());
+        session.setAttribute("buyNowTotal", product.getPrice());
 
         response.sendRedirect("checkout.jsp");
     }
