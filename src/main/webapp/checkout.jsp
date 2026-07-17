@@ -57,7 +57,11 @@ else if(cartProducts != null){
 
     for(Product p : cartProducts){
 
-        productIds += p.getId() + ",";
+        if(!productIds.isEmpty()){
+            productIds += ",";
+        }
+
+        productIds += p.getId();
 
     }
 
