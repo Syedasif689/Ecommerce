@@ -75,73 +75,108 @@ href="css/seller-dashboard.css">
     </div>
 
 </div>
-
 <h2 class="products-title">My Products</h2>
-
-<div class="product-grid">
 
 <%
 if(products != null && !products.isEmpty()){
-
-    for(Product product : products){
 %>
 
-<div class="product-card">
+<div class="table-wrapper">
 
-    <img src="<%= product.getImageUrl() %>" alt="Product Image">
+<table class="product-table">
 
-    <h3><%= product.getName() %></h3>
+<thead>
 
-    <div class="price">
-        ₹<%= product.getPrice() %>
-    </div>
+<tr>
 
-    <p>
-        <%= product.getDescription() %>
-    </p>
+<th>Image</th>
+<th>Product</th>
+<th>Price</th>
+<th>Description</th>
+<th>Actions</th>
 
-    <div class="card-buttons">
+</tr>
 
-        <a href="edit-product.jsp?id=<%=product.getId()%>" class="edit-btn">
-            <i class="fa-solid fa-pen"></i>
-            Edit
-        </a>
+</thead>
 
-        <a href="deleteProduct?id=<%=product.getId()%>"
-           class="delete-btn"
-           onclick="return confirm('Delete this product?')">
+<tbody>
 
-            <i class="fa-solid fa-trash"></i>
-            Delete
+<%
+for(Product product : products){
+%>
 
-        </a>
+<tr>
 
-    </div>
+<td class="image-cell">
+
+<img src="<%=product.getImageUrl()%>"
+     alt="Product">
+
+</td>
+
+<td>
+<%=product.getName()%>
+</td>
+
+<td class="price">
+₹<%=product.getPrice()%>
+</td>
+
+<td>
+<%=product.getDescription()%>
+</td>
+
+<td>
+
+<a href="edit-product.jsp?id=<%=product.getId()%>"
+   class="edit-btn">
+
+<i class="fa-solid fa-pen"></i>
+
+Edit
+
+</a>
+
+<a href="deleteProduct?id=<%=product.getId()%>"
+   class="delete-btn"
+   onclick="return confirm('Delete this product?')">
+
+<i class="fa-solid fa-trash"></i>
+
+Delete
+
+</a>
+
+</td>
+
+</tr>
+
+<%
+}
+%>
+
+</tbody>
+
+</table>
 
 </div>
 
 <%
-    }
 }else{
 %>
 
 <div class="empty-products">
 
-    <i class="fa-solid fa-box-open"></i>
+<i class="fa-solid fa-box-open"></i>
 
-    <h2>No Products Yet</h2>
+<h2>No Products Yet</h2>
 
-    <p>
-        Start growing your store by adding your first product.
-    </p>
+<p>Add your first product to start selling.</p>
 
-    <a href="add-product.jsp" class="add-btn">
-
-        <i class="fa-solid fa-plus"></i>
-
-        Add Product
-
-    </a>
+<a href="add-product.jsp" class="add-btn">
+<i class="fa-solid fa-plus"></i>
+Add Product
+</a>
 
 </div>
 
