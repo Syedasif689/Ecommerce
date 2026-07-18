@@ -12,11 +12,6 @@ Product product =
 List<Product> cartProducts =
 (List<Product>)session.getAttribute("cartItems");
 
-// Debug only
-out.println("Buy Product = " + product + "<br>");
-out.println("Cart Items = " +
-    (cartProducts == null ? "null" : cartProducts.size()) + "<br>");
-
 // TOTAL CALCULATION
 double total = 0;
 
