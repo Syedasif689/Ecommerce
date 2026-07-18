@@ -3,7 +3,10 @@ package com.ecommerce.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.ecommerce.model.Product;
 import com.ecommerce.util.DBConnection;
 
 public class CartDAO {
@@ -54,4 +57,48 @@ public class CartDAO {
 
         return null;
     }
+    public List<Product> getCartProducts(int userId) {
+
+    List<Product> list = new ArrayList<>();
+
+    try {
+
+        Connection con = DBConnection.getConnection();
+
+        String sql =
+            "SELECT p.* FROM cart c " +
+            "JOIN products p ON c.product_id = p.id " +
+            "WHERE c.user_id=?";
+
+        PreparedStatement ps = con.prepareStatement(sql);
+
+        ps.setInt(1, userId);
+
+        ResultSet rs = ps.executeQuery();
+
+        while(rs.next()){
+
+            Product p = new Product();
+
+            p.setId(rs.getInt("id"));
+            p.setName(rs.getString("name"));
+            p.setDescription(rs.getString("description"));
+            p.setPrice(rs.getDouble("price"));
+            p.setImageUrl(rs.getString("image_url"));
+            p.setShopName(rs.getString("shop_name"));
+            p.setSellerName(rs.getString("seller_name"));
+
+            list.add(p);
+
+        }
+
+    } catch(Exception e){
+
+        e.printStackTrace();
+
+    }
+
+    return list;
+
+}
 }

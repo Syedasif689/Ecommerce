@@ -90,6 +90,6 @@ session.setAttribute("cartTotal", total);
 session.setAttribute("cartTotal", total);
 %>
 
-<a href="checkout.jsp">Proceed to Checkout</a>
+<a href="CartCheckoutServlet">Proceed to Checkout</a>
 </body>
 </html>
