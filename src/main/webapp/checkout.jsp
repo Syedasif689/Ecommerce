@@ -54,6 +54,7 @@ else if(cartProducts != null){
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Checkout</title>
 <link rel="stylesheet" href="css/checkout.css">
+<link rel="stylesheet" href="css/security.css">
 </head>
 <body>
 
