@@ -33,6 +33,24 @@ if(product == null && cartProducts == null){
     response.sendRedirect("home.jsp");
     return;
 }
+
+%>
+<%
+String productIds = "";
+
+if(product != null){
+    productIds = String.valueOf(product.getId());
+}
+else if(cartProducts != null){
+    for(Product p : cartProducts){
+
+        if(!productIds.isEmpty()){
+            productIds += ",";
+        }
+
+        productIds += p.getId();
+    }
+}
 %>
 <!DOCTYPE html>
 <html>
