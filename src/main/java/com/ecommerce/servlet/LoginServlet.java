@@ -1,6 +1,7 @@
 package com.ecommerce.servlet;
 
 import java.io.IOException;
+import java.util.UUID;
 
 import com.ecommerce.dao.UserDAO;
 import com.ecommerce.model.User;
@@ -36,19 +37,22 @@ public class LoginServlet extends HttpServlet {
     session.setAttribute("user", user);
     session.setAttribute("username", user.getName());
 
-    String remember = request.getParameter("rememberMe");
+   String remember = request.getParameter("rememberMe");
 
-    if (remember != null) {
+if(remember != null){
 
-        Cookie cookie =
-                new Cookie("rememberEmail", user.getEmail());
+    String token = UUID.randomUUID().toString();
 
-        cookie.setMaxAge(60 * 60 * 24 * 30); // 30 Days
+    dao.updateRememberToken(user.getId(), token);
 
-        cookie.setPath("/");
+    Cookie cookie = new Cookie("rememberToken", token);
 
-        response.addCookie(cookie);
-    }
+    cookie.setMaxAge(60 * 60 * 24 * 30);
+
+    cookie.setPath("/");
+
+    response.addCookie(cookie);
+}
 
     response.sendRedirect("home.jsp");
 

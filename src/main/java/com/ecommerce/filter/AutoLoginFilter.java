@@ -11,7 +11,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @WebFilter("/*")
@@ -23,11 +22,22 @@ public class AutoLoginFilter implements Filter {
                          FilterChain chain)
             throws IOException, ServletException {
 
-        HttpServletRequest req =
-                (HttpServletRequest) request;
+        HttpServletRequest req = (HttpServletRequest) request;
 
-        HttpServletResponse res =
-                (HttpServletResponse) response;
+        String path = req.getRequestURI();
+
+        // Skip static resources
+        if (path.endsWith(".css") ||
+            path.endsWith(".js") ||
+            path.endsWith(".png") ||
+            path.endsWith(".jpg") ||
+            path.endsWith(".jpeg") ||
+            path.endsWith(".gif") ||
+            path.endsWith(".ico")) {
+
+            chain.doFilter(request, response);
+            return;
+        }
 
         HttpSession session = req.getSession(false);
 
@@ -37,22 +47,20 @@ public class AutoLoginFilter implements Filter {
 
             if (cookies != null) {
 
+                UserDAO dao = new UserDAO();
+
                 for (Cookie cookie : cookies) {
 
-                    if ("rememberEmail".equals(cookie.getName())) {
+                    if ("rememberToken".equals(cookie.getName())) {
 
-                        UserDAO dao = new UserDAO();
-
-                        User user =
-                                dao.getUserByEmail(cookie.getValue());
+                        User user = dao.getUserByRememberToken(cookie.getValue());
 
                         if (user != null) {
 
-                            session = req.getSession();
+                            session = req.getSession(true);
 
                             session.setAttribute("user", user);
-                            session.setAttribute("username",
-                                    user.getName());
+                            session.setAttribute("username", user.getName());
                         }
 
                         break;
@@ -63,5 +71,4 @@ public class AutoLoginFilter implements Filter {
 
         chain.doFilter(request, response);
     }
-
 }

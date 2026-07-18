@@ -6,6 +6,7 @@ public class User {
     private String name;
     private String email;
     private String password;
+    private String rememberToken;
 
     public User() {
     }
@@ -46,5 +47,12 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    public String getRememberToken() {
+    return rememberToken;
+    }
+
+    public void setRememberToken(String rememberToken) {
+    this.rememberToken = rememberToken;
     }
 }

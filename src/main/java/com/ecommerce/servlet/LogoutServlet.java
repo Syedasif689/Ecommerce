@@ -2,6 +2,9 @@ package com.ecommerce.servlet;
 
 import java.io.IOException;
 
+import com.ecommerce.dao.UserDAO;
+import com.ecommerce.model.User;
+
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
@@ -18,20 +21,29 @@ public class LogoutServlet extends HttpServlet {
                          HttpServletResponse response)
             throws IOException {
 
-        // Invalidate session
         HttpSession session = request.getSession(false);
 
         if(session != null){
+
+            User user = (User) session.getAttribute("user");
+
+            if(user != null){
+
+                UserDAO dao = new UserDAO();
+
+                dao.clearRememberToken(user.getId());
+            }
+
             session.invalidate();
         }
 
-        // Delete Remember Me cookie
-        Cookie cookie = new Cookie("rememberEmail", "");
+        Cookie cookie = new Cookie("rememberToken", "");
+
         cookie.setMaxAge(0);
         cookie.setPath("/");
+
         response.addCookie(cookie);
 
-        // Redirect to login page
         response.sendRedirect("login.jsp");
     }
 }

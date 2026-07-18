@@ -128,4 +128,69 @@ public User getUserByEmail(String email) {
 
     return user;
 }
+public User getUserByRememberToken(String token) {
+
+    User user = null;
+
+    try {
+
+        Connection con = DBConnection.getConnection();
+
+        String sql =
+            "SELECT * FROM users WHERE remember_token=?";
+
+        PreparedStatement ps = con.prepareStatement(sql);
+
+        ps.setString(1, token);
+
+        ResultSet rs = ps.executeQuery();
+
+        if(rs.next()){
+
+            user = new User();
+
+            user.setId(rs.getInt("id"));
+            user.setName(rs.getString("name"));
+            user.setEmail(rs.getString("email"));
+            user.setPassword(rs.getString("password"));
+            user.setRememberToken(rs.getString("remember_token"));
+        }
+
+    } catch(Exception e){
+
+        e.printStackTrace();
+
+    }
+
+    return user;
+}
+public boolean updateRememberToken(int userId, String token) {
+
+    try {
+
+        Connection con = DBConnection.getConnection();
+
+        String sql =
+                "UPDATE users SET remember_token=? WHERE id=?";
+
+        PreparedStatement ps = con.prepareStatement(sql);
+
+        ps.setString(1, token);
+        ps.setInt(2, userId);
+
+        return ps.executeUpdate() > 0;
+
+    } catch(Exception e) {
+
+        e.printStackTrace();
+
+    }
+
+    return false;
+}
+public boolean clearRememberToken(int userId){
+
+    return updateRememberToken(userId, null);
+
+}
 }
