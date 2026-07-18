@@ -84,9 +84,6 @@ public class CartDAO {
             p.setName(rs.getString("name"));
             p.setDescription(rs.getString("description"));
             p.setPrice(rs.getDouble("price"));
-            p.setImageUrl(rs.getString("image_url"));
-            p.setShopName(rs.getString("shop_name"));
-            p.setSellerName(rs.getString("seller_name"));
 
             list.add(p);
 

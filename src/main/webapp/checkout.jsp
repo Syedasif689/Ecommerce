@@ -5,68 +5,34 @@ pageEncoding="UTF-8"%>
 <%@ page import="com.ecommerce.model.Product" %>
 <%@ page import="java.util.List" %>
 
-
 <%
-
 Product product =
 (Product)session.getAttribute("buyNowProduct");
-
 
 List<Product> cartProducts =
 (List<Product>)session.getAttribute("cartItems");
 
+// Debug only
+out.println("Buy Product = " + product + "<br>");
+out.println("Cart Items = " +
+    (cartProducts == null ? "null" : cartProducts.size()) + "<br>");
 
 // TOTAL CALCULATION
 double total = 0;
 
-
 if(product != null){
-
     total = product.getPrice();
-
 }
 else if(cartProducts != null){
-
     for(Product p : cartProducts){
-
         total += p.getPrice();
-
     }
-
 }
 
-
-// CHECK EMPTY
 if(product == null && cartProducts == null){
-
     response.sendRedirect("home.jsp");
     return;
-
 }
-
-%>
-<%
-String productIds = "";
-
-if(product != null){
-
-    productIds = String.valueOf(product.getId());
-
-}
-else if(cartProducts != null){
-
-    for(Product p : cartProducts){
-
-        if(!productIds.isEmpty()){
-            productIds += ",";
-        }
-
-        productIds += p.getId();
-
-    }
-
-}
-
 %>
 <!DOCTYPE html>
 <html>
@@ -100,18 +66,6 @@ if(product != null){
 
         <p>
             <%= product.getDescription() %>
-        </p>
-
-
-        <p>
-            <strong>Shop :</strong>
-            <%= product.getShopName() %>
-        </p>
-
-
-        <p>
-            <strong>Seller :</strong>
-            <%= product.getSellerName() %>
         </p>
 
 

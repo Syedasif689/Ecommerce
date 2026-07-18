@@ -34,16 +34,25 @@ public class CartCheckoutServlet extends HttpServlet {
 
         CartDAO dao = new CartDAO();
 
-        List<Product> cartProducts =
-                dao.getCartProducts(user.getId());
+       List<Product> cartProducts = dao.getCartProducts(user.getId());
 
-        // IMPORTANT
-        session.removeAttribute("buyNowProduct");
-        session.removeAttribute("buyNowTotal");
+System.out.println("========== CART DEBUG ==========");
+System.out.println("User ID: " + user.getId());
+System.out.println("Cart Size: " + cartProducts.size());
 
-        session.setAttribute("cartItems", cartProducts);
+for (Product p : cartProducts) {
+    System.out.println("Product ID: " + p.getId());
+    System.out.println("Product Name: " + p.getName());
+}
 
-        response.sendRedirect("checkout.jsp");
+session.removeAttribute("buyNowProduct");
+session.removeAttribute("buyNowTotal");
+
+session.setAttribute("cartItems", cartProducts);
+
+System.out.println("Session cartItems set.");
+
+response.sendRedirect("checkout.jsp");
 
     }
 
