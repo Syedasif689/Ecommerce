@@ -39,7 +39,7 @@ public class CartDAO {
             Connection con = DBConnection.getConnection();
 
             String sql =
-                "SELECT c.id, p.name, p.price, c.quantity " +
+                "SELECT c.id, p.name,p.price,p.image_url,  c.quantity " +
                 "FROM cart c JOIN products p " +
                 "ON c.product_id = p.id " +
                 "WHERE c.user_id=?";
@@ -84,6 +84,7 @@ public class CartDAO {
             p.setName(rs.getString("name"));
             p.setDescription(rs.getString("description"));
             p.setPrice(rs.getDouble("price"));
+            p.setImageUrl(rs.getString("image_url"));
 
             list.add(p);
 
