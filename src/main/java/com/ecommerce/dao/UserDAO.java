@@ -3,6 +3,7 @@ package com.ecommerce.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
 import com.ecommerce.model.User;
 import com.ecommerce.util.DBConnection;
 
@@ -63,4 +64,31 @@ public class UserDAO {
 
         return user;
     }
+    public boolean isUserExists(String name, String email) {
+
+    boolean exists = false;
+
+    try {
+
+        Connection con = DBConnection.getConnection();
+
+        String sql = "SELECT * FROM users WHERE name=? OR email=?";
+
+        PreparedStatement ps = con.prepareStatement(sql);
+
+        ps.setString(1, name);
+        ps.setString(2, email);
+
+        ResultSet rs = ps.executeQuery();
+
+        if(rs.next()) {
+            exists = true;
+        }
+
+    } catch(Exception e) {
+        e.printStackTrace();
+    }
+
+    return exists;
+}
 }

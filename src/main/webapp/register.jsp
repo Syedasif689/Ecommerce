@@ -100,6 +100,19 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         </div>
 
         <h2>Customer Registration</h2>
+        <%
+String error = (String) request.getAttribute("error");
+
+if(error != null){
+%>
+
+<div class="error-message">
+    <%= error %>
+</div>
+
+<%
+}
+%>
 
         <form action="RegisterServlet" method="post">
 
