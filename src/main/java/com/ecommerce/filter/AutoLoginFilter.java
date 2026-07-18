@@ -26,14 +26,15 @@ public class AutoLoginFilter implements Filter {
 
         String path = req.getRequestURI();
 
-        // Skip static resources
+        // Skip static resources and logout
         if (path.endsWith(".css") ||
             path.endsWith(".js") ||
             path.endsWith(".png") ||
             path.endsWith(".jpg") ||
             path.endsWith(".jpeg") ||
             path.endsWith(".gif") ||
-            path.endsWith(".ico")) {
+            path.endsWith(".ico") ||
+            path.endsWith("LogoutServlet")) {
 
             chain.doFilter(request, response);
             return;
@@ -53,7 +54,8 @@ public class AutoLoginFilter implements Filter {
 
                     if ("rememberToken".equals(cookie.getName())) {
 
-                        User user = dao.getUserByRememberToken(cookie.getValue());
+                        User user =
+                            dao.getUserByRememberToken(cookie.getValue());
 
                         if (user != null) {
 
