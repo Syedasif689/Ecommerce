@@ -7,6 +7,7 @@ import com.ecommerce.model.User;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -28,20 +29,35 @@ public class LoginServlet extends HttpServlet {
 
         User user = dao.loginUser(email, password);
 
-        if (user != null) {
+       if (user != null) {
 
-            HttpSession session = request.getSession();
+    HttpSession session = request.getSession();
 
-            session.setAttribute("user", user);
-            session.setAttribute("username", user.getName());
+    session.setAttribute("user", user);
+    session.setAttribute("username", user.getName());
 
-            response.sendRedirect("home.jsp");
+    String remember = request.getParameter("rememberMe");
 
-        } else {
+    if (remember != null) {
 
-            response.getWriter().println(
-                "<h3>Invalid Email or Password!</h3>"
-            );
-        }
+        Cookie cookie =
+                new Cookie("rememberEmail", user.getEmail());
+
+        cookie.setMaxAge(60 * 60 * 24 * 30); // 30 Days
+
+        cookie.setPath("/");
+
+        response.addCookie(cookie);
+    }
+
+    response.sendRedirect("home.jsp");
+
+}
+else {
+
+    response.getWriter().println("Invalid Email or Password");
+
+}
+        
     }
 }

@@ -91,4 +91,41 @@ public class UserDAO {
 
     return exists;
 }
+public User getUserByEmail(String email) {
+
+    User user = null;
+
+    try {
+
+        Connection con = DBConnection.getConnection();
+
+        String sql =
+                "SELECT * FROM users WHERE email=?";
+
+        PreparedStatement ps =
+                con.prepareStatement(sql);
+
+        ps.setString(1, email);
+
+        ResultSet rs = ps.executeQuery();
+
+        if(rs.next()){
+
+            user = new User();
+
+            user.setId(rs.getInt("id"));
+            user.setName(rs.getString("name"));
+            user.setEmail(rs.getString("email"));
+            user.setPassword(rs.getString("password"));
+
+        }
+
+    } catch(Exception e){
+
+        e.printStackTrace();
+
+    }
+
+    return user;
+}
 }

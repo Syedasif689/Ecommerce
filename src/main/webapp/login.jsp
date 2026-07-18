@@ -74,6 +74,12 @@ pageEncoding="UTF-8"%>
             <button class="login-btn" type="submit">
                 Login
             </button>
+            <br><br>
+
+             <label class="remember">
+              <input type="checkbox" name="rememberMe">
+                 Remember Me
+               </label>
 
         </form>
 
