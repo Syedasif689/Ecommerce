@@ -53,7 +53,7 @@ else if(cartProducts != null){
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Checkout</title>
-<link rel="stylesheet" href="checkout.css">
+<link rel="stylesheet" href="css/checkout.css">
 </head>
 <body>
 
