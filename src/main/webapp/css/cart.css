@@ -1,6 +1,5 @@
 /* ============================================================
-   PREMIUM E-COMMERCE CART STYLES
-   Inspired by Flipkart & Amazon – Fully Responsive
+   MODERN CART STYLES – Fully Responsive (desktop → mobile)
    ============================================================ */
 
 /* ----- RESET & BASE ----- */
@@ -43,7 +42,7 @@ h2::after {
     margin: 8px auto 0;
 }
 
-/* ----- TABLE / CARD WRAPPER ----- */
+/* ----- TABLE (desktop) ----- */
 table {
     width: 100%;
     max-width: 1100px;
@@ -53,15 +52,9 @@ table {
     overflow: hidden;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
     margin-bottom: 28px;
-    border: none;
-    transition: box-shadow 0.3s ease;
+    border: none !important;  /* override any border="1" */
 }
 
-table:hover {
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.10);
-}
-
-/* ----- TABLE HEADER ----- */
 table thead tr {
     background: #fafafa;
     border-bottom: 2px solid #e0e0e0;
@@ -79,7 +72,6 @@ table th {
     border: none;
 }
 
-/* ----- TABLE ROWS ----- */
 table tbody tr {
     border-bottom: 1px solid #f0f0f0;
     transition: background 0.15s ease;
@@ -89,11 +81,6 @@ table tbody tr:hover {
     background: #fafafa;
 }
 
-table tbody tr:last-child {
-    border-bottom: none;
-}
-
-/* ----- TABLE CELLS ----- */
 table td {
     padding: 16px 20px;
     vertical-align: middle;
@@ -115,7 +102,7 @@ table td:nth-child(4) {
     color: #212121;
 }
 
-/* ----- QUANTITY CONTROLS (centered) ----- */
+/* ----- QUANTITY CONTROLS (desktop) ----- */
 table td:nth-child(3) {
     display: flex;
     align-items: center;
@@ -124,10 +111,8 @@ table td:nth-child(3) {
     padding: 12px 20px;
     font-weight: 600;
     font-size: 16px;
-    color: #212121;
 }
 
-/* Plus / Minus buttons */
 table td:nth-child(3) a {
     display: inline-flex;
     align-items: center;
@@ -141,7 +126,6 @@ table td:nth-child(3) a {
     font-size: 18px;
     font-weight: 600;
     transition: all 0.2s ease;
-    line-height: 1;
     border: 1px solid transparent;
     user-select: none;
     touch-action: manipulation;
@@ -159,7 +143,6 @@ table td:nth-child(3) a:active {
     transform: scale(0.92);
 }
 
-/* The quantity number (now wrapped in .quantity-value) */
 table td:nth-child(3) .quantity-value {
     min-width: 36px;
     text-align: center;
@@ -167,7 +150,7 @@ table td:nth-child(3) .quantity-value {
     font-size: 16px;
     color: #212121;
     padding: 0 4px;
-    pointer-events: none; /* ensures clicks pass to the anchors */
+    pointer-events: none;
 }
 
 /* ----- REMOVE BUTTON ----- */
@@ -217,11 +200,6 @@ table tbody tr:last-child td {
     padding: 18px 20px;
     border-top: 2px solid #e0e0e0;
     border-bottom: none;
-}
-
-table tbody tr:last-child td:first-child {
-    font-weight: 600;
-    color: #212121;
 }
 
 table tbody tr:last-child td:last-child {
@@ -306,51 +284,10 @@ a.checkout-link:hover::after {
 }
 
 /* ============================================================
-   RESPONSIVE: TABLETS & SMALL LAPTOPS
-   ============================================================ */
-@media (max-width: 768px) {
-    body {
-        padding: 24px 12px;
-    }
-
-    table th,
-    table td {
-        padding: 12px 14px;
-        font-size: 14px;
-    }
-
-    table td:nth-child(3) {
-        padding: 10px 14px;
-    }
-
-    table td:nth-child(3) a {
-        width: 30px;
-        height: 30px;
-        font-size: 16px;
-    }
-
-    table td:last-child a {
-        padding: 4px 12px;
-        font-size: 13px;
-    }
-
-    table tbody tr:last-child td {
-        font-size: 15px;
-        padding: 14px 14px;
-    }
-
-    a.continue-link,
-    a.checkout-link {
-        padding: 12px 28px;
-        min-width: 140px;
-        font-size: 14px;
-    }
-}
-
-/* ============================================================
-   RESPONSIVE: MOBILE (card layout)
+   MOBILE VIEW – Card layout (max-width: 600px)
    ============================================================ */
 @media (max-width: 600px) {
+    /* Force table to behave like blocks */
     table,
     table thead,
     table tbody,
@@ -361,16 +298,17 @@ a.checkout-link:hover::after {
     }
 
     table thead {
-        display: none;
+        display: none; /* hide header */
     }
 
+    /* Each row becomes a card */
     table tbody tr {
         background: #ffffff;
         border-radius: 14px;
         box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
         padding: 16px 14px;
         margin-bottom: 14px;
-        border: none;
+        border: none !important;
         transition: box-shadow 0.2s ease;
     }
 
@@ -381,14 +319,10 @@ a.checkout-link:hover::after {
 
     table tbody tr:last-child {
         margin-bottom: 0;
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
         background: #fafafa;
     }
 
-    table tbody tr:last-child:hover {
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.10);
-    }
-
+    /* Each cell becomes a flex row with label + value */
     table td {
         padding: 8px 0;
         border: none;
@@ -400,9 +334,8 @@ a.checkout-link:hover::after {
         flex-wrap: wrap;
     }
 
-    /* Labels for each field (using ::before) */
+    /* Add labels using ::before with fixed content */
     table td::before {
-        content: attr(data-label);
         font-weight: 600;
         color: #878787;
         font-size: 12px;
@@ -428,16 +361,18 @@ a.checkout-link:hover::after {
         content: 'Action';
     }
 
-    /* Hide labels on grand total row */
+    /* Hide labels on the grand total row */
     table tbody tr:last-child td::before {
         display: none;
     }
 
+    /* Special styles for product name */
     table td:first-child {
         font-weight: 600;
         font-size: 15px;
     }
 
+    /* Quantity controls – ensure they stay inline */
     table td:nth-child(3) {
         display: flex;
         justify-content: space-between;
@@ -452,6 +387,7 @@ a.checkout-link:hover::after {
         font-size: 18px;
     }
 
+    /* Remove button – right aligned */
     table td:last-child {
         justify-content: flex-end;
         padding-top: 10px;
@@ -464,7 +400,7 @@ a.checkout-link:hover::after {
         font-size: 13px;
     }
 
-    /* Grand total row – special treatment */
+    /* Grand total row */
     table tbody tr:last-child td {
         display: flex;
         justify-content: space-between;
@@ -508,7 +444,7 @@ a.checkout-link:hover::after {
 }
 
 /* ============================================================
-   RESPONSIVE: VERY SMALL PHONES (320px – 380px)
+   EXTRA SMALL PHONES (320px – 380px)
    ============================================================ */
 @media (max-width: 380px) {
     body {
