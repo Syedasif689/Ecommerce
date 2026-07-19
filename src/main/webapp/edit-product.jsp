@@ -10,7 +10,7 @@ Product product =
 (Product) request.getAttribute("product");
 
 if(product == null){
-    response.sendRedirect("sellerDashboard.jsp");
+    response.sendRedirect("seller-dashboard.jsp");
     return;
 }
 
