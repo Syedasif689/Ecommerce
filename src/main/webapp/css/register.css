@@ -63,6 +63,30 @@ select{
     font-weight:600;
     margin-bottom:20px;
 }
+.error-input{
+    border:2px solid #ff4d4f !important;
+    background:#fff3f3;
+    box-shadow:0 0 8px rgba(255,77,79,.25);
+    animation:shake .3s;
+}
+
+.error-message{
+    background:#ffecec;
+    color:#d60000;
+    padding:12px;
+    border-radius:10px;
+    border:1px solid #ffb5b5;
+    margin-bottom:18px;
+    font-weight:600;
+}
+
+@keyframes shake{
+    0%{transform:translateX(0);}
+    25%{transform:translateX(-5px);}
+    50%{transform:translateX(5px);}
+    75%{transform:translateX(-5px);}
+    100%{transform:translateX(0);}
+}
 /* ===========================
    LEFT SECTION
 =========================== */

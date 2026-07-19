@@ -34,19 +34,29 @@ public class RegisterServlet extends HttpServlet {
 
         UserDAO dao = new UserDAO();
 
-        boolean exists = dao.isUserExists(name, email);
+       boolean nameExists = dao.isNameExists(name);
+boolean emailExists = dao.isEmailExists(email);
 
-        System.out.println("User Exists = " + exists);
+if (nameExists || emailExists) {
 
-        if (exists) {
+    request.setAttribute("enteredName", name);
+    request.setAttribute("enteredEmail", email);
 
-            request.setAttribute("error",
-                    "Username or Email already exists.");
+    if (nameExists) {
+        request.setAttribute("duplicateName", true);
+    }
 
-            request.getRequestDispatcher("register.jsp")
-                   .forward(request, response);
-            return;
-        }
+    if (emailExists) {
+        request.setAttribute("duplicateEmail", true);
+    }
+
+    request.setAttribute("error",
+            "Please correct the highlighted fields.");
+
+    request.getRequestDispatcher("register.jsp")
+           .forward(request, response);
+    return;
+}
 
         boolean status = dao.registerUser(user);
 

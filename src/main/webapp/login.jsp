@@ -71,13 +71,13 @@ pageEncoding="UTF-8"%>
                 placeholder="Enter your password"
                 required>
 
-            <button class="login-btn" type="submit">
-                Login
-            </button>
+               <button class="login-btn" type="submit" id="loginBtn">
+                   Login
+               </button>
             <br><br>
 
              <label class="remember">
-              <input type="checkbox" name="rememberMe" id="loginbtn">
+              <input type="checkbox" name="rememberMe">
                  Remember Me
                </label>
 
@@ -111,9 +111,14 @@ pageEncoding="UTF-8"%>
 
 </div>
 <script>
-document.querySelector("form").addEventListener("submit", function () {
+document.querySelector("form").addEventListener("submit", function (e) {
 
     const btn = document.getElementById("loginBtn");
+
+    if (btn.disabled) {
+        e.preventDefault();
+        return;
+    }
 
     btn.disabled = true;
     btn.innerHTML = "Logging In...";

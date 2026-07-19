@@ -102,6 +102,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         <h2>Customer Registration</h2>
         <%
 String error = (String) request.getAttribute("error");
+String enteredName = (String)request.getAttribute("enteredName");
+String enteredEmail = (String)request.getAttribute("enteredEmail");
+
+String duplicateName = (String)request.getAttribute("duplicateName");
+String duplicateEmail = (String)request.getAttribute("duplicateEmail");
 
 if(error != null){
 %>
@@ -116,17 +121,21 @@ if(error != null){
 
         <form action="RegisterServlet" method="post">
 
-            <input
-                type="text"
-                name="name"
-                placeholder="Full Name"
-                required>
+           <input
+            type="text"
+            name="name"
+            placeholder="Full Name"
+            value="<%= enteredName != null ? enteredName : "" %>"
+            class="<%= duplicateName != null ? "error-input" : "" %>"
+            required>
 
             <input
-                type="email"
-                name="email"
-                placeholder="Email Address"
-                required>
+             type="email"
+             name="email"
+             placeholder="Email Address"
+             value="<%= enteredEmail != null ? enteredEmail : "" %>"
+             class="<%= duplicateEmail != null ? "error-input" : "" %>"
+            required>
 
             <input
                 type="password"

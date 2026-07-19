@@ -40,11 +40,13 @@ public class UserDAO {
         try {
             Connection con = DBConnection.getConnection();
 
-            String sql = "SELECT * FROM users WHERE email=? AND password=?";
+            String sql =
+             "SELECT * FROM users WHERE LOWER(email)=LOWER(?) AND password=?";
 
             PreparedStatement ps = con.prepareStatement(sql);
 
-            ps.setString(1, email);
+            ps.setString(1, email.trim());
+
             ps.setString(2, password);
 
             ResultSet rs = ps.executeQuery();
@@ -64,39 +66,55 @@ public class UserDAO {
 
         return user;
     }
-    public boolean isUserExists(String name, String email) {
-
-    boolean exists = false;
+public boolean isEmailExists(String email) {
 
     try {
 
         Connection con = DBConnection.getConnection();
 
-        String sql = "SELECT * FROM users WHERE name=? OR email=?";
+        String sql = "SELECT id FROM users WHERE LOWER(email)=LOWER(?)";
+
+        PreparedStatement ps = con.prepareStatement(sql);
+        
+        ps.setString(1, email.trim());
+
+        ResultSet rs = ps.executeQuery();
+
+        return rs.next();
+
+    } catch (Exception e) {
+
+        e.printStackTrace();
+
+    }
+
+    return false;
+}
+public boolean isNameExists(String name) {
+
+    try {
+
+        Connection con = DBConnection.getConnection();
+
+        String sql = "SELECT id FROM users WHERE LOWER(name)=LOWER(?)";
 
         PreparedStatement ps = con.prepareStatement(sql);
 
         ps.setString(1, name.trim());
-        ps.setString(2, email.trim());
-
-        System.out.println("Checking Name = " + name);
-        System.out.println("Checking Email = " + email);
 
         ResultSet rs = ps.executeQuery();
 
-        if (rs.next()) {
-            System.out.println("Existing User Found");
-            exists = true;
-        } else {
-            System.out.println("No Existing User");
-        }
+        return rs.next();
 
     } catch (Exception e) {
+
         e.printStackTrace();
+
     }
 
-    return exists;
+    return false;
 }
+
 public User getUserByEmail(String email) {
 
     User user = null;
@@ -111,7 +129,8 @@ public User getUserByEmail(String email) {
         PreparedStatement ps =
                 con.prepareStatement(sql);
 
-        ps.setString(1, email);
+        ps.setString(1, email.trim());
+
 
         ResultSet rs = ps.executeQuery();
 
