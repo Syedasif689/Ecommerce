@@ -96,52 +96,89 @@ session.setAttribute("cartTotal", total);
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Helper to update the total from the fetched HTML
-    function updateCartFromResponse(html) {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-        
-        // Replace the entire table with the new one from the server
-        const oldTable = document.querySelector('table');
-        const newTable = doc.querySelector('table');
-        if (newTable) {
-            oldTable.replaceWith(newTable);
-        }
-        
-        // Update the "Grand Total" in the session (optional visual sync)
-        // The new table already has the correct totals.
-        
-        // Re-bind event listeners to the new + and - links
-        bindQuantityLinks();
-    }
 
-    function bindQuantityLinks() {
-        const links = document.querySelectorAll('td:nth-child(3) a');
-        links.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();  // Stop full page reload
-                const url = this.href;
-                
-                // Show a tiny visual feedback (optional)
-                this.style.opacity = '0.5';
-                setTimeout(() => this.style.opacity = '1', 300);
-                
-                fetch(url)
-                    .then(response => response.text())
-                    .then(html => {
-                        updateCartFromResponse(html);
-                    })
-                    .catch(err => {
-                        console.error('Update failed', err);
-                        // Fallback: reload page if AJAX fails
-                        window.location.href = url;
-                    });
-            });
+    // ---- Helper: Recalculate Grand Total from the DOM ----
+    function updateGrandTotal() {
+        let grandTotal = 0;
+        document.querySelectorAll('table tbody tr').forEach(row => {
+            // Skip the grand total row itself (it doesn't have a remove link)
+            if (!row.querySelector('td:last-child a')) return;
+
+            const price = parseFloat(row.dataset.price) || 0;
+            const qtySpan = row.querySelector('.quantity-value');
+            const qty = parseInt(qtySpan ? qtySpan.textContent : 0) || 0;
+            const itemTotal = price * qty;
+
+            // Update the "Total" column for this row
+            const totalCell = row.querySelector('td:nth-child(4)');
+            if (totalCell) {
+                totalCell.textContent = '₹' + itemTotal.toFixed(2);
+            }
+
+            grandTotal += itemTotal;
         });
+
+        // Update the Grand Total footer
+        const grandTotalCell = document.querySelector('table tbody tr:last-child td:last-child');
+        if (grandTotalCell) {
+            grandTotalCell.textContent = '₹' + grandTotal.toFixed(2);
+        }
     }
 
-    // Initial bind
-    bindQuantityLinks();
+    // ---- Handle +/- clicks ----
+    function handleQuantityClick(e) {
+        e.preventDefault(); // Stop the browser from navigating
+
+        const link = this;
+        const row = link.closest('tr');
+        const price = parseFloat(row.dataset.price) || 0;
+        const qtySpan = row.querySelector('.quantity-value');
+        let currentQty = parseInt(qtySpan.textContent) || 0;
+
+        // Determine new quantity (Optimistic!)
+        let newQty;
+        if (link.textContent.trim() === '➕') {
+            newQty = currentQty + 1;
+        } else if (link.textContent.trim() === '➖') {
+            newQty = currentQty - 1;
+            if (newQty < 1) newQty = 1; // Prevent going below 1
+        } else {
+            return; // Safety guard
+        }
+
+        // --- OPTIMISTIC UPDATE: Change the DOM immediately ---
+        qtySpan.textContent = newQty;
+        updateGrandTotal(); // Recalculate totals instantly
+
+        // --- Send the actual request to the server (in background) ---
+        const url = link.href;
+        fetch(url)
+            .then(response => {
+                // If the server fails (e.g., out of stock), it might return an error.
+                // We check if the response is ok, else we throw.
+                if (!response.ok) throw new Error('Server update failed');
+                return response.text();
+            })
+            .then(html => {
+                // Success! Our optimistic update is now confirmed.
+                // (We don't need to replace the table because we already updated it.)
+                // Optional: Parse the returned HTML to double-check the server's quantity,
+                // but for performance, we trust our update.
+            })
+            .catch(err => {
+                // --- REVERT on error ---
+                console.warn('Update failed, reverting...', err);
+                qtySpan.textContent = currentQty;
+                updateGrandTotal();
+                alert('Failed to update quantity. Please check your connection and try again.');
+            });
+    }
+
+    // ---- Bind click events to all +/- buttons ----
+    document.querySelectorAll('td:nth-child(3) a').forEach(link => {
+        link.addEventListener('click', handleQuantityClick);
+    });
+
 });
 </script>
 </body>
