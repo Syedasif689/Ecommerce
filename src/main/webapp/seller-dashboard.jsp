@@ -134,9 +134,8 @@ for(Product product : products){
 
 <td>
 
-<a href="edit-product.jsp?id=<%=product.getId()%>"
+<a href="<%=request.getContextPath()%>/EditProductServlet?id=<%=product.getId()%>"
    class="edit-btn">
-
 <i class="fa-solid fa-pen"></i>
 
 Edit
