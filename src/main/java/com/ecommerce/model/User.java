@@ -7,7 +7,8 @@ public class User {
     private String email;
     private String password;
     private String rememberToken;
-
+    private String googleId;
+    private String authProvider;
     public User() {
     }
 
@@ -55,4 +56,19 @@ public class User {
     public void setRememberToken(String rememberToken) {
     this.rememberToken = rememberToken;
     }
+    public String getGoogleId() {
+    return googleId;
+}
+
+public void setGoogleId(String googleId) {
+    this.googleId = googleId;
+}
+
+public String getAuthProvider() {
+    return authProvider;
+}
+
+public void setAuthProvider(String authProvider) {
+    this.authProvider = authProvider;
+}
 }

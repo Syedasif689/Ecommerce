@@ -45,7 +45,58 @@ security
 /* ===========================
    VIDEO SECTION
 =========================== */
+.divider{
+    display:flex;
+    align-items:center;
+    margin:22px 0;
+}
 
+.divider::before,
+.divider::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:#ddd;
+}
+
+.divider span{
+    padding:0 15px;
+    color:#666;
+    font-size:14px;
+    font-weight:600;
+}
+
+.g_id_signin{
+    width:100%;
+    display:flex;
+    justify-content:center;
+    margin-bottom:20px;
+}
+.google-login{
+    display:flex;
+    justify-content:center;
+    margin:20px 0;
+}
+
+.divider{
+    display:flex;
+    align-items:center;
+    margin:20px 0;
+}
+
+.divider::before,
+.divider::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:#ddd;
+}
+
+.divider span{
+    margin:0 12px;
+    color:#777;
+    font-size:14px;
+}
 .login-video{
     width:50%;
     position:relative;

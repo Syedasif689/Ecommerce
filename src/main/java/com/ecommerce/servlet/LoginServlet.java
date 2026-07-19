@@ -33,7 +33,7 @@ public class LoginServlet extends HttpServlet {
        if (user != null) {
 
     HttpSession session = request.getSession();
-
+    session.setMaxInactiveInterval(60 * 60 * 24 * 30);
     session.setAttribute("user", user);
     session.setAttribute("username", user.getName());
 
@@ -59,7 +59,11 @@ if(remember != null){
 }
 else {
 
-    response.getWriter().println("Invalid Email or Password");
+    request.setAttribute("error",
+        "Invalid Email or Password");
+
+    request.getRequestDispatcher("login.jsp")
+       .forward(request, response);
 
 }
         

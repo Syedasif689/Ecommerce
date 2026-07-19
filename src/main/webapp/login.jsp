@@ -1,10 +1,13 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
-
+<%
+String googleClientId = System.getenv("GOOGLE_CLIENT_ID");
+%>
 <!DOCTYPE html>
 <html>
 <head>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,7 +35,7 @@ pageEncoding="UTF-8"%>
 
         <div class="image-content">
 
-            <h1>Welcome!</h1>
+            <h1>Welcome Back!</h1>
 
             <p>
                 Shop smarter, faster, and securely.
@@ -48,6 +51,7 @@ pageEncoding="UTF-8"%>
     <div class="login-box">
 
         <h2>Customer Login</h2>
+        <p>Client ID: <%= googleClientId %></p>
 
         <p class="subtitle">
             Sign in to continue shopping.
@@ -82,10 +86,31 @@ pageEncoding="UTF-8"%>
                </label>
 
         </form>
+         <div class="divider">
+    <span>OR</span>
+</div>
 
-        <div class="links">
-            <a href="register.jsp">Create Customer Account</a>
-        </div>
+<div id="g_id_onload"
+     data-client_id="<%= googleClientId %>"
+     data-callback="handleCredentialResponse"
+     data-auto_prompt="false">
+</div>
+
+<div class="google-login">
+    <div class="g_id_signin"
+         data-type="standard"
+         data-theme="outline"
+         data-size="large"
+         data-shape="pill"
+         data-text="continue_with"
+         data-logo_alignment="left"
+         data-width="330">
+    </div>
+</div>
+
+<div class="links">
+    <a href="register.jsp">Create Customer Account</a>
+</div>
 
         <div class="seller-section">
 
@@ -111,8 +136,7 @@ pageEncoding="UTF-8"%>
 
 </div>
 <script>
-document.querySelector("form").addEventListener("submit", function (e) {
-
+document.querySelector('form[action="LoginServlet"]').addEventListener("submit", function (e) {
     const btn = document.getElementById("loginBtn");
 
     if (btn.disabled) {
@@ -123,6 +147,15 @@ document.querySelector("form").addEventListener("submit", function (e) {
     btn.disabled = true;
     btn.innerHTML = "Logging In...";
 });
+</script>
+<script>
+function handleCredentialResponse(response) {
+
+    document.getElementById("credential").value =
+        response.credential;
+
+    document.getElementById("googleForm").submit();
+}
 </script>
 </body>
 </html>

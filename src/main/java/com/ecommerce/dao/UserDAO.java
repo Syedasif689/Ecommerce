@@ -123,8 +123,8 @@ public User getUserByEmail(String email) {
 
         Connection con = DBConnection.getConnection();
 
-        String sql =
-                "SELECT * FROM users WHERE email=?";
+       String sql =
+         "SELECT * FROM users WHERE LOWER(email)=LOWER(?)";
 
         PreparedStatement ps =
                 con.prepareStatement(sql);
@@ -137,12 +137,13 @@ public User getUserByEmail(String email) {
         if(rs.next()){
 
             user = new User();
-
             user.setId(rs.getInt("id"));
             user.setName(rs.getString("name"));
             user.setEmail(rs.getString("email"));
             user.setPassword(rs.getString("password"));
-
+            user.setGoogleId(rs.getString("google_id"));
+            user.setAuthProvider(rs.getString("auth_provider"));
+            user.setRememberToken(rs.getString("remember_token"));
         }
 
     } catch(Exception e){
@@ -213,9 +214,66 @@ public boolean updateRememberToken(int userId, String token) {
 
     return false;
 }
+
 public boolean clearRememberToken(int userId){
 
     return updateRememberToken(userId, null);
 
+}
+public boolean registerGoogleUser(User user) {
+
+    try {
+
+        Connection con = DBConnection.getConnection();
+
+        String sql = """
+                INSERT INTO users
+                (name,email,password,google_id,auth_provider)
+                VALUES(?,?,NULL,?,?)
+                """;
+
+        PreparedStatement ps = con.prepareStatement(sql);
+
+        ps.setString(1, user.getName());
+        ps.setString(2, user.getEmail());
+        ps.setString(3, user.getGoogleId());
+        ps.setString(4, user.getAuthProvider());
+
+        return ps.executeUpdate() > 0;
+
+    } catch (Exception e) {
+
+        e.printStackTrace();
+
+    }
+
+    return false;
+}
+public boolean updateGoogleAccount(int userId,
+                                   String googleId,
+                                   String provider) {
+
+    try {
+
+        Connection con = DBConnection.getConnection();
+
+        String sql =
+            "UPDATE users SET google_id=?, auth_provider=? WHERE id=?";
+
+        PreparedStatement ps = con.prepareStatement(sql);
+
+        ps.setString(1, googleId);
+        ps.setString(2, provider);
+        ps.setInt(3, userId);
+
+        return ps.executeUpdate() > 0;
+
+    } catch (Exception e) {
+
+        e.printStackTrace();
+
+    }
+
+    return false;
 }
 }
