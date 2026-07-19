@@ -1,0 +1,442 @@
+/* ===== RESET & BASE ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f7f9fc;
+    color: #1a1a2e;
+    padding: 40px 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ===== PAGE HEADER ===== */
+h2 {
+    font-size: 28px;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin-bottom: 28px;
+    letter-spacing: -0.3px;
+    position: relative;
+}
+
+h2::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 4px;
+    background: #4361ee;
+    border-radius: 4px;
+    margin: 8px auto 0;
+}
+
+/* ===== TABLE WRAPPER ===== */
+table {
+    width: 100%;
+    max-width: 900px;
+    border-collapse: collapse;
+    background: #ffffff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    margin-bottom: 28px;
+    border: none;
+}
+
+/* ===== TABLE HEADER ===== */
+table th {
+    background: #f0f3f8;
+    color: #2d3748;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 16px 18px;
+    text-align: left;
+    border: none;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+/* ===== TABLE CELLS ===== */
+table td {
+    padding: 16px 18px;
+    border: none;
+    border-bottom: 1px solid #edf2f7;
+    vertical-align: middle;
+    font-size: 15px;
+    color: #2d3748;
+}
+
+table tr:last-child td {
+    border-bottom: none;
+}
+
+/* ===== PRODUCT NAME ===== */
+table td:first-child {
+    font-weight: 500;
+    color: #1a1a2e;
+}
+
+/* ===== PRICE & TOTAL COLUMNS ===== */
+table td:nth-child(2),
+table td:nth-child(4) {
+    font-weight: 500;
+    color: #1a1a2e;
+}
+
+/* ===== QUANTITY CONTROLS ===== */
+table td:nth-child(3) {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 18px;
+}
+
+table td:nth-child(3) a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #f0f3f8;
+    color: #2d3748;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    line-height: 1;
+}
+
+table td:nth-child(3) a:hover {
+    background: #4361ee;
+    color: #ffffff;
+    transform: scale(1.05);
+}
+
+table td:nth-child(3) a:active {
+    transform: scale(0.95);
+}
+
+table td:nth-child(3) span,
+table td:nth-child(3) .quantity-value {
+    font-weight: 600;
+    font-size: 16px;
+    min-width: 24px;
+    text-align: center;
+    color: #1a1a2e;
+}
+
+/* ===== REMOVE BUTTON ===== */
+table td:last-child a {
+    display: inline-block;
+    padding: 6px 16px;
+    background: #fee2e2;
+    color: #b91c1c;
+    text-decoration: none;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+table td:last-child a:hover {
+    background: #fecaca;
+    border-color: #fca5a5;
+    transform: translateY(-1px);
+}
+
+/* ===== GRAND TOTAL ROW ===== */
+table tr:last-child td {
+    background: #f8fafc;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 18px 18px;
+    border-top: 2px solid #e2e8f0;
+}
+
+table tr:last-child td:first-child {
+    font-weight: 600;
+    color: #1a1a2e;
+}
+
+table tr:last-child td:last-child {
+    font-size: 18px;
+    color: #4361ee;
+}
+
+/* ===== ACTION LINKS (below table) ===== */
+a.continue-link,
+a.checkout-link {
+    display: inline-block;
+    padding: 12px 32px;
+    border-radius: 30px;
+    font-weight: 500;
+    font-size: 15px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    margin: 6px 8px;
+}
+
+a.continue-link {
+    background: transparent;
+    color: #4361ee;
+    border: 2px solid #4361ee;
+}
+
+a.continue-link:hover {
+    background: #4361ee;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(67, 97, 238, 0.25);
+}
+
+a.checkout-link {
+    background: #4361ee;
+    color: #ffffff;
+    border: 2px solid #4361ee;
+}
+
+a.checkout-link:hover {
+    background: #3651d4;
+    border-color: #3651d4;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(67, 97, 238, 0.35);
+}
+
+/* ===== BUTTON GROUP ===== */
+.action-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 6px;
+}
+
+/* ===== EMPTY STATE HINT ===== */
+.empty-hint {
+    text-align: center;
+    padding: 40px 20px;
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    max-width: 500px;
+    width: 100%;
+}
+
+.empty-hint p {
+    font-size: 16px;
+    color: #64748b;
+    margin-bottom: 16px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    body {
+        padding: 24px 12px;
+    }
+
+    h2 {
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+
+    table {
+        border-radius: 10px;
+        font-size: 14px;
+    }
+
+    table th,
+    table td {
+        padding: 12px 12px;
+        font-size: 13px;
+    }
+
+    table td:nth-child(3) {
+        gap: 8px;
+        padding: 10px 12px;
+    }
+
+    table td:nth-child(3) a {
+        width: 28px;
+        height: 28px;
+        font-size: 14px;
+    }
+
+    table td:last-child a {
+        padding: 4px 12px;
+        font-size: 12px;
+    }
+
+    table tr:last-child td {
+        font-size: 14px;
+        padding: 14px 12px;
+    }
+
+    table tr:last-child td:last-child {
+        font-size: 16px;
+    }
+
+    a.continue-link,
+    a.checkout-link {
+        padding: 10px 24px;
+        font-size: 14px;
+        margin: 4px 6px;
+    }
+
+    .action-group {
+        gap: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Stack table into card-like rows */
+    table,
+    table thead,
+    table tbody,
+    table tr,
+    table td,
+    table th {
+        display: block;
+    }
+
+    table thead {
+        display: none;
+    }
+
+    table tr {
+        padding: 16px 14px;
+        border-bottom: 2px solid #edf2f7;
+        background: #ffffff;
+        border-radius: 10px;
+        margin-bottom: 12px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+    }
+
+    table tr:last-child {
+        margin-bottom: 0;
+        border-bottom: none;
+    }
+
+    table td {
+        padding: 6px 0;
+        border: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 14px;
+    }
+
+    table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #64748b;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+    }
+
+    table td:first-child {
+        font-weight: 600;
+        font-size: 15px;
+    }
+
+    table td:first-child::before {
+        content: 'Product';
+    }
+
+    table td:nth-child(2)::before {
+        content: 'Price';
+    }
+
+    table td:nth-child(3) {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 6px 0;
+        gap: 0;
+    }
+
+    table td:nth-child(3)::before {
+        content: 'Quantity';
+        font-weight: 600;
+        color: #64748b;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+    }
+
+    table td:nth-child(4)::before {
+        content: 'Total';
+    }
+
+    table td:last-child {
+        justify-content: flex-end;
+        gap: 12px;
+        padding-top: 8px;
+        border-top: 1px dashed #e2e8f0;
+        margin-top: 6px;
+    }
+
+    table td:last-child::before {
+        content: 'Action';
+        font-weight: 600;
+        color: #64748b;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+    }
+
+    table td:nth-child(3) a {
+        width: 30px;
+        height: 30px;
+        font-size: 15px;
+    }
+
+    table td:nth-child(3) .quantity-value {
+        min-width: 28px;
+    }
+
+    table tr:last-child td {
+        display: flex;
+        justify-content: space-between;
+        background: transparent;
+        padding: 10px 0;
+        border-top: 2px solid #e2e8f0;
+    }
+
+    table tr:last-child td:first-child {
+        font-size: 15px;
+    }
+
+    table tr:last-child td:last-child {
+        font-size: 18px;
+    }
+
+    /* hide pseudo labels on grand total row */
+    table tr:last-child td::before {
+        display: none;
+    }
+
+    a.continue-link,
+    a.checkout-link {
+        padding: 10px 20px;
+        font-size: 13px;
+        width: 100%;
+        text-align: center;
+        margin: 4px 0;
+    }
+
+    .action-group {
+        flex-direction: column;
+        width: 100%;
+        max-width: 320px;
+    }
+}
