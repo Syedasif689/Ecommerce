@@ -220,4 +220,33 @@ public Product getProductById(int productId) {
 
         return products;
     }
+    // Update seller product
+public boolean updateProduct(Product product) {
+
+    boolean status = false;
+
+    try (
+        Connection con = DBConnection.getConnection();
+        PreparedStatement ps = con.prepareStatement(
+            "UPDATE products SET name=?, price=?, description=? WHERE id=?"
+        )
+    ) {
+
+        ps.setString(1, product.getName());
+        ps.setDouble(2, product.getPrice());
+        ps.setString(3, product.getDescription());
+        ps.setInt(4, product.getId());
+
+        int rows = ps.executeUpdate();
+
+        if(rows > 0) {
+            status = true;
+        }
+
+    } catch(Exception e) {
+        e.printStackTrace();
+    }
+
+    return status;
+}
 }
