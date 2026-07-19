@@ -33,7 +33,7 @@ if(product == null){
 
 <body>
 
-<div class="edit-container"></div>
+<div class="edit-container">
 <h2>Edit Product</h2>
 
 
