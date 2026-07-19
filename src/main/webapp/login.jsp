@@ -51,7 +51,7 @@ String googleClientId = System.getenv("GOOGLE_CLIENT_ID");
     <div class="login-box">
 
         <h2>Customer Login</h2>
-        <p>Client ID: <%= googleClientId %></p>
+        
 
         <p class="subtitle">
             Sign in to continue shopping.
