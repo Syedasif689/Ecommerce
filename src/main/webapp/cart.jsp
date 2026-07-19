@@ -50,14 +50,14 @@ rs.getInt("quantity");
 total += itemTotal;
 %>
 
-<tr>
+<tr data-cart-id="<%= rs.getInt("id") %>" data-price="<%= rs.getDouble("price") %>">
     <td><%= rs.getString("name") %></td>
     <td>&#8377;<%= rs.getDouble("price") %></td>
 
     <td>
         <a href="DecreaseQuantityServlet?cartId=<%= rs.getInt("id") %>">➖</a>
 
-        <%= rs.getInt("quantity") %>
+        <span class="quantity-value"><%= rs.getInt("quantity") %></span>
 
         <a href="IncreaseQuantityServlet?cartId=<%= rs.getInt("id") %>">➕</a>
     </td>
@@ -84,15 +84,13 @@ total += itemTotal;
 
 <br>
 
-<a href="products.jsp">Continue Shopping</a>
-<%
-session.setAttribute("cartTotal", total);
-%>
-<%
-session.setAttribute("cartTotal", total);
-%>
-
-<a href="CartCheckoutServlet">Proceed to Checkout</a>
+<div class="action-group">
+    <a href="products.jsp" class="continue-link">Continue Shopping</a>
+    <%
+    session.setAttribute("cartTotal", total);
+    %>
+    <a href="CartCheckoutServlet" class="checkout-link">Proceed to Checkout</a>
+</div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {

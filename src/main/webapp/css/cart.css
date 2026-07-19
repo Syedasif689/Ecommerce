@@ -1,6 +1,6 @@
 /* ============================================================
    PREMIUM E-COMMERCE CART STYLES
-   Fully responsive – 320px to 4K
+   Inspired by Flipkart & Amazon – Fully Responsive
    ============================================================ */
 
 /* ----- RESET & BASE ----- */
@@ -43,7 +43,7 @@ h2::after {
     margin: 8px auto 0;
 }
 
-/* ----- CARD / TABLE WRAPPER ----- */
+/* ----- TABLE / CARD WRAPPER ----- */
 table {
     width: 100%;
     max-width: 1100px;
@@ -159,7 +159,7 @@ table td:nth-child(3) a:active {
     transform: scale(0.92);
 }
 
-/* The quantity number (text node between anchors) */
+/* The quantity number (now wrapped in .quantity-value) */
 table td:nth-child(3) .quantity-value {
     min-width: 36px;
     text-align: center;
@@ -400,7 +400,7 @@ a.checkout-link:hover::after {
         flex-wrap: wrap;
     }
 
-    /* Labels for each field */
+    /* Labels for each field (using ::before) */
     table td::before {
         content: attr(data-label);
         font-weight: 600;
