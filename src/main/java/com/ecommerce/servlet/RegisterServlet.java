@@ -50,11 +50,21 @@ if (nameExists || emailExists) {
         request.setAttribute("duplicateEmail", true);
     }
 
-    request.setAttribute("error",
-            "Please correct the highlighted fields.");
+    String error = "";
+
+    if (nameExists && emailExists) {
+        error = "Username and Email already exist.";
+    } else if (nameExists) {
+        error = "Username already exists.";
+    } else if (emailExists) {
+        error = "Email already exists.";
+    }
+
+    request.setAttribute("error", error);
 
     request.getRequestDispatcher("register.jsp")
            .forward(request, response);
+
     return;
 }
 
