@@ -10,9 +10,8 @@ import com.ecommerce.dao.UserDAO;
 import com.ecommerce.model.User;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
-import com.google.api.client.http.apache.v2.ApacheHttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
-
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -46,7 +45,7 @@ public class GoogleLoginServlet extends HttpServlet {
 
             GoogleIdTokenVerifier verifier =
                     new GoogleIdTokenVerifier.Builder(
-                            new ApacheHttpTransport(),
+                            new NetHttpTransport(),
                             GsonFactory.getDefaultInstance())
                             .setAudience(Collections.singletonList(CLIENT_ID))
                             .build();
