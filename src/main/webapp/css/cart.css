@@ -1,6 +1,6 @@
 /* ============================================================
-   MODERN E-COMMERCE CART STYLES
-   Inspired by Flipkart & Amazon
+   PREMIUM E-COMMERCE CART STYLES
+   Fully responsive – 320px to 4K
    ============================================================ */
 
 /* ----- RESET & BASE ----- */
@@ -12,9 +12,9 @@
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background: #f1f3f6;   /* light grey background like Flipkart */
+    background: #f1f3f6;
     color: #212121;
-    padding: 40px 20px;
+    padding: 30px 16px;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -23,13 +23,14 @@ body {
 
 /* ----- PAGE HEADER ----- */
 h2 {
-    font-size: 28px;
+    font-size: clamp(22px, 5vw, 32px);
     font-weight: 600;
     color: #212121;
-    margin-bottom: 30px;
+    margin-bottom: 28px;
     letter-spacing: -0.3px;
     position: relative;
     display: inline-block;
+    text-align: center;
 }
 
 h2::after {
@@ -37,12 +38,12 @@ h2::after {
     display: block;
     width: 60px;
     height: 4px;
-    background: #2874f0;   /* Flipkart blue */
+    background: #2874f0;
     border-radius: 4px;
     margin: 8px auto 0;
 }
 
-/* ----- CART CONTAINER (table wrapper) ----- */
+/* ----- CARD / TABLE WRAPPER ----- */
 table {
     width: 100%;
     max-width: 1100px;
@@ -51,7 +52,7 @@ table {
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-    margin-bottom: 30px;
+    margin-bottom: 28px;
     border: none;
     transition: box-shadow 0.3s ease;
 }
@@ -67,13 +68,13 @@ table thead tr {
 }
 
 table th {
-    padding: 18px 20px;
+    padding: 16px 20px;
     text-align: left;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 13px;
     text-transform: uppercase;
-    letter-spacing: 0.4px;
-    color: #878787;          /* muted grey like Flipkart */
+    letter-spacing: 0.5px;
+    color: #878787;
     background: transparent;
     border: none;
 }
@@ -94,35 +95,39 @@ table tbody tr:last-child {
 
 /* ----- TABLE CELLS ----- */
 table td {
-    padding: 18px 20px;
+    padding: 16px 20px;
     vertical-align: middle;
     font-size: 15px;
     border: none;
     color: #212121;
 }
 
-/* ---- Product name ---- */
+/* Product name */
 table td:first-child {
     font-weight: 500;
     color: #212121;
 }
 
-/* ---- Price & Total columns ---- */
+/* Price & Total columns */
 table td:nth-child(2),
 table td:nth-child(4) {
     font-weight: 500;
     color: #212121;
 }
 
-/* ---- Quantity controls (container) ---- */
+/* ----- QUANTITY CONTROLS (centered) ----- */
 table td:nth-child(3) {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0;
     padding: 12px 20px;
+    font-weight: 600;
+    font-size: 16px;
+    color: #212121;
 }
 
-/* Quantity buttons – plus/minus */
+/* Plus / Minus buttons */
 table td:nth-child(3) a {
     display: inline-flex;
     align-items: center;
@@ -139,6 +144,8 @@ table td:nth-child(3) a {
     line-height: 1;
     border: 1px solid transparent;
     user-select: none;
+    touch-action: manipulation;
+    cursor: pointer;
 }
 
 table td:nth-child(3) a:hover {
@@ -152,60 +159,18 @@ table td:nth-child(3) a:active {
     transform: scale(0.92);
 }
 
-/* Quantity number (the text between buttons) */
-table td:nth-child(3) .quantity-value,
-table td:nth-child(3) span:not(a) {
+/* The quantity number (text node between anchors) */
+table td:nth-child(3) .quantity-value {
     min-width: 36px;
     text-align: center;
     font-weight: 600;
     font-size: 16px;
     color: #212121;
     padding: 0 4px;
+    pointer-events: none; /* ensures clicks pass to the anchors */
 }
 
-/* We need to target the text node between <a> tags.
-   Since there is no wrapper, we can style the text directly.
-   But we can't style text nodes with CSS. We'll rely on the fact that
-   the text is inside <td> and we can style the children.
-   The existing HTML:
-   <td>
-       <a href="...">➖</a>
-       <%= rs.getInt("quantity") %>
-       <a href="...">➕</a>
-   </td>
-   So the quantity is a text node. We can't style it directly.
-   We can wrap it in a span in the JSP, but we cannot change the JSP.
-   So we can either style the td to center the content, or we can use
-   a workaround: set display:flex and justify-content:center on the td,
-   then all children (links and text) will be centered. The text node
-   will be in the flex flow. We can style it by setting a generic rule
-   for text nodes? Not possible. We can set the td to display:flex and
-   the text node will be treated as a flex item; we can style it by
-   setting a minimum width and text-align center on the td itself.
-   But we also have links which are flex items. So we can set:
-   td:nth-child(3) { display: flex; align-items: center; justify-content: center; gap: 0; }
-   Then the text node will be centered automatically.
-   We can also add a rule: td:nth-child(3) > * { ... } but that won't
-   target text nodes. However, we can set the td's font-weight and size
-   and it will apply to the text node. So we'll do that.
-*/
-
-table td:nth-child(3) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0;
-    font-weight: 600;
-    font-size: 16px;
-    color: #212121;
-}
-
-/* Ensure the buttons are not stretched */
-table td:nth-child(3) a {
-    flex-shrink: 0;
-}
-
-/* ---- Remove button ---- */
+/* ----- REMOVE BUTTON ----- */
 table td:last-child {
     text-align: center;
 }
@@ -223,11 +188,11 @@ table td:last-child a {
     font-weight: 500;
     transition: all 0.2s ease;
     border: 1px solid transparent;
+    cursor: pointer;
 }
 
-/* Add a trash icon using pseudo-element (Unicode) */
 table td:last-child a::before {
-    content: '\1F5D1';  /* 🗑️ */
+    content: '\1F5D1';
     font-size: 16px;
     line-height: 1;
     display: inline-block;
@@ -249,7 +214,7 @@ table tbody tr:last-child td {
     background: #fafafa;
     font-weight: 600;
     font-size: 17px;
-    padding: 20px 20px;
+    padding: 18px 20px;
     border-top: 2px solid #e0e0e0;
     border-bottom: none;
 }
@@ -260,18 +225,18 @@ table tbody tr:last-child td:first-child {
 }
 
 table tbody tr:last-child td:last-child {
-    font-size: 20px;
-    color: #2874f0;          /* primary blue */
+    font-size: clamp(18px, 3vw, 22px);
+    color: #2874f0;
     font-weight: 700;
 }
 
-/* ----- BUTTON GROUP (below table) ----- */
+/* ----- ACTION BUTTONS (below table) ----- */
 .action-group {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 16px;
-    margin-top: 8px;
+    margin-top: 4px;
     width: 100%;
     max-width: 600px;
 }
@@ -284,16 +249,16 @@ a.checkout-link {
     padding: 14px 36px;
     border-radius: 30px;
     font-weight: 600;
-    font-size: 16px;
+    font-size: clamp(14px, 2vw, 16px);
     text-decoration: none;
     transition: all 0.25s ease;
-    min-width: 180px;
+    min-width: 160px;
     letter-spacing: 0.3px;
     border: none;
     cursor: pointer;
+    flex: 1 1 auto;
 }
 
-/* Continue Shopping (outline) */
 a.continue-link {
     background: transparent;
     color: #2874f0;
@@ -307,7 +272,6 @@ a.continue-link:hover {
     box-shadow: 0 8px 24px rgba(40, 116, 240, 0.25);
 }
 
-/* Proceed to Checkout (solid) */
 a.checkout-link {
     background: #2874f0;
     color: #ffffff;
@@ -321,7 +285,6 @@ a.checkout-link:hover {
     box-shadow: 0 8px 28px rgba(40, 116, 240, 0.35);
 }
 
-/* Add small icons (optional – using pseudo) */
 a.continue-link::before {
     content: '← ';
     font-size: 18px;
@@ -342,33 +305,22 @@ a.checkout-link:hover::after {
     transform: translateX(4px);
 }
 
-/* ----- RESPONSIVE DESIGN ----- */
-
-/* Tablets & small desktops */
+/* ============================================================
+   RESPONSIVE: TABLETS & SMALL LAPTOPS
+   ============================================================ */
 @media (max-width: 768px) {
     body {
-        padding: 24px 16px;
-    }
-
-    h2 {
-        font-size: 24px;
-        margin-bottom: 24px;
-    }
-
-    table {
-        border-radius: 12px;
-        font-size: 14px;
+        padding: 24px 12px;
     }
 
     table th,
     table td {
-        padding: 14px 14px;
+        padding: 12px 14px;
         font-size: 14px;
     }
 
     table td:nth-child(3) {
         padding: 10px 14px;
-        gap: 0;
     }
 
     table td:nth-child(3) a {
@@ -384,24 +336,21 @@ a.checkout-link:hover::after {
 
     table tbody tr:last-child td {
         font-size: 15px;
-        padding: 16px 14px;
-    }
-
-    table tbody tr:last-child td:last-child {
-        font-size: 18px;
+        padding: 14px 14px;
     }
 
     a.continue-link,
     a.checkout-link {
         padding: 12px 28px;
-        font-size: 15px;
-        min-width: 150px;
+        min-width: 140px;
+        font-size: 14px;
     }
 }
 
-/* Mobile phones – convert to card layout */
-@media (max-width: 480px) {
-    /* Force table to behave like blocks */
+/* ============================================================
+   RESPONSIVE: MOBILE (card layout)
+   ============================================================ */
+@media (max-width: 600px) {
     table,
     table thead,
     table tbody,
@@ -411,18 +360,16 @@ a.checkout-link:hover::after {
         display: block;
     }
 
-    /* Hide table header */
     table thead {
         display: none;
     }
 
-    /* Each row becomes a card */
     table tbody tr {
         background: #ffffff;
         border-radius: 14px;
         box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-        padding: 18px 16px;
-        margin-bottom: 16px;
+        padding: 16px 14px;
+        margin-bottom: 14px;
         border: none;
         transition: box-shadow 0.2s ease;
     }
@@ -450,28 +397,21 @@ a.checkout-link:hover::after {
         align-items: center;
         font-size: 14px;
         background: transparent;
+        flex-wrap: wrap;
     }
 
-    /* Add labels using data attributes (we need to add data-label in JSP – but we can't)
-       We'll use CSS pseudo with content: attr(data-label) but since we don't have that,
-       we can use a workaround: use ::before with fixed content for each column position.
-       But because we cannot change the HTML, we can't add data-label.
-       Alternative: use nth-child to add static labels using ::before.
-       However, we can use the fact that we know the column order.
-    */
-
+    /* Labels for each field */
     table td::before {
         content: attr(data-label);
         font-weight: 600;
         color: #878787;
-        font-size: 13px;
+        font-size: 12px;
         text-transform: uppercase;
         letter-spacing: 0.3px;
         margin-right: 10px;
         flex-shrink: 0;
     }
 
-    /* Since we don't have data-label, we can set content manually for each column */
     table td:first-child::before {
         content: 'Product';
     }
@@ -488,12 +428,11 @@ a.checkout-link:hover::after {
         content: 'Action';
     }
 
-    /* Override for grand total row – remove labels */
+    /* Hide labels on grand total row */
     table tbody tr:last-child td::before {
         display: none;
     }
 
-    /* Style the actual content */
     table td:first-child {
         font-weight: 600;
         font-size: 15px;
@@ -508,12 +447,11 @@ a.checkout-link:hover::after {
     }
 
     table td:nth-child(3) a {
-        width: 32px;
-        height: 32px;
-        font-size: 16px;
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
     }
 
-    /* Remove button – align right */
     table td:last-child {
         justify-content: flex-end;
         padding-top: 10px;
@@ -526,7 +464,7 @@ a.checkout-link:hover::after {
         font-size: 13px;
     }
 
-    /* Grand total row – make it stand out */
+    /* Grand total row – special treatment */
     table tbody tr:last-child td {
         display: flex;
         justify-content: space-between;
@@ -565,18 +503,20 @@ a.checkout-link:hover::after {
 
     a.continue-link::before,
     a.checkout-link::after {
-        display: none; /* remove arrows on mobile for cleaner look */
+        display: none;
     }
 }
 
-/* Small phones (under 380px) */
+/* ============================================================
+   RESPONSIVE: VERY SMALL PHONES (320px – 380px)
+   ============================================================ */
 @media (max-width: 380px) {
     body {
-        padding: 16px 10px;
+        padding: 12px 8px;
     }
 
     table tbody tr {
-        padding: 14px 12px;
+        padding: 12px 10px;
     }
 
     table td {
@@ -589,8 +529,23 @@ a.checkout-link:hover::after {
     }
 
     table td:nth-child(3) a {
-        width: 28px;
-        height: 28px;
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
+    }
+
+    table td:nth-child(3) .quantity-value {
+        min-width: 28px;
+        font-size: 14px;
+    }
+
+    table tbody tr:last-child td:last-child {
+        font-size: 18px;
+    }
+
+    a.continue-link,
+    a.checkout-link {
+        padding: 12px 16px;
         font-size: 14px;
     }
 }

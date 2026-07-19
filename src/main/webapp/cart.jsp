@@ -93,5 +93,56 @@ session.setAttribute("cartTotal", total);
 %>
 
 <a href="CartCheckoutServlet">Proceed to Checkout</a>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Helper to update the total from the fetched HTML
+    function updateCartFromResponse(html) {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        
+        // Replace the entire table with the new one from the server
+        const oldTable = document.querySelector('table');
+        const newTable = doc.querySelector('table');
+        if (newTable) {
+            oldTable.replaceWith(newTable);
+        }
+        
+        // Update the "Grand Total" in the session (optional visual sync)
+        // The new table already has the correct totals.
+        
+        // Re-bind event listeners to the new + and - links
+        bindQuantityLinks();
+    }
+
+    function bindQuantityLinks() {
+        const links = document.querySelectorAll('td:nth-child(3) a');
+        links.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();  // Stop full page reload
+                const url = this.href;
+                
+                // Show a tiny visual feedback (optional)
+                this.style.opacity = '0.5';
+                setTimeout(() => this.style.opacity = '1', 300);
+                
+                fetch(url)
+                    .then(response => response.text())
+                    .then(html => {
+                        updateCartFromResponse(html);
+                    })
+                    .catch(err => {
+                        console.error('Update failed', err);
+                        // Fallback: reload page if AJAX fails
+                        window.location.href = url;
+                    });
+            });
+        });
+    }
+
+    // Initial bind
+    bindQuantityLinks();
+});
+</script>
 </body>
 </html>
