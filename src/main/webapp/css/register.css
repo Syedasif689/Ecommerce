@@ -87,6 +87,10 @@ select{
     75%{transform:translateX(-5px);}
     100%{transform:translateX(0);}
 }
+.duplicate{
+    border:2px solid #ff3b30 !important;
+    background:#fff3f3;
+}
 /* ===========================
    LEFT SECTION
 =========================== */

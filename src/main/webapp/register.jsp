@@ -105,8 +105,11 @@ String error = (String) request.getAttribute("error");
 String enteredName = (String)request.getAttribute("enteredName");
 String enteredEmail = (String)request.getAttribute("enteredEmail");
 
-String duplicateName = (String)request.getAttribute("duplicateName");
-String duplicateEmail = (String)request.getAttribute("duplicateEmail");
+Boolean duplicateName =
+    (Boolean) request.getAttribute("duplicateName");
+
+Boolean duplicateEmail =
+    (Boolean) request.getAttribute("duplicateEmail");
 
 if(error != null){
 %>
@@ -122,19 +125,19 @@ if(error != null){
         <form action="RegisterServlet" method="post">
 
            <input
-            type="text"
-            name="name"
-            placeholder="Full Name"
-            value="<%= enteredName != null ? enteredName : "" %>"
-            class="<%= duplicateName != null ? "error-input" : "" %>"
+             type="text"
+             name="name"
+             value="<%= enteredName != null ? enteredName : "" %>"
+             class="<%= Boolean.TRUE.equals(duplicateName) ? "duplicate" : "" %>"
+             placeholder="Full Name"
             required>
 
             <input
-             type="email"
-             name="email"
-             placeholder="Email Address"
-             value="<%= enteredEmail != null ? enteredEmail : "" %>"
-             class="<%= duplicateEmail != null ? "error-input" : "" %>"
+            type="email"
+            name="email"
+            value="<%= enteredEmail != null ? enteredEmail : "" %>"
+            class="<%= Boolean.TRUE.equals(duplicateEmail) ? "duplicate" : "" %>"
+            placeholder="Email Address"
             required>
 
             <input
