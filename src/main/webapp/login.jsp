@@ -106,6 +106,16 @@ String googleClientId = System.getenv("GOOGLE_CLIENT_ID");
          data-logo_alignment="left"
          data-width="330">
     </div>
+    <form id="googleForm"
+      action="GoogleLoginServlet"
+      method="post">
+
+    <input
+        type="hidden"
+        id="credential"
+        name="credential">
+
+</form>
 </div>
 
 <div class="links">
