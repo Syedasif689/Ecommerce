@@ -203,6 +203,19 @@ document.querySelector("form").addEventListener("submit", function () {
     btn.style.cursor = "not-allowed";
 });
 </script>
+<script>
+document.querySelectorAll("input").forEach(function(input) {
+
+    input.addEventListener("focus", function() {
+        this.classList.remove("duplicate");
+    });
+
+    input.addEventListener("input", function() {
+        this.classList.remove("duplicate");
+    });
+
+});
+</script>
 </body>
 
 </html>
