@@ -1,4 +1,9 @@
-/* ===== RESET & BASE ===== */
+/* ============================================================
+   MODERN E-COMMERCE CART STYLES
+   Inspired by Flipkart & Amazon
+   ============================================================ */
+
+/* ----- RESET & BASE ----- */
 * {
     margin: 0;
     padding: 0;
@@ -6,9 +11,9 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f7f9fc;
-    color: #1a1a2e;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: #f1f3f6;   /* light grey background like Flipkart */
+    color: #212121;
     padding: 40px 20px;
     min-height: 100vh;
     display: flex;
@@ -16,288 +21,387 @@ body {
     align-items: center;
 }
 
-/* ===== PAGE HEADER ===== */
+/* ----- PAGE HEADER ----- */
 h2 {
     font-size: 28px;
     font-weight: 600;
-    color: #1a1a2e;
-    margin-bottom: 28px;
+    color: #212121;
+    margin-bottom: 30px;
     letter-spacing: -0.3px;
     position: relative;
+    display: inline-block;
 }
 
 h2::after {
     content: '';
     display: block;
-    width: 50px;
+    width: 60px;
     height: 4px;
-    background: #4361ee;
+    background: #2874f0;   /* Flipkart blue */
     border-radius: 4px;
     margin: 8px auto 0;
 }
 
-/* ===== TABLE WRAPPER ===== */
+/* ----- CART CONTAINER (table wrapper) ----- */
 table {
     width: 100%;
-    max-width: 900px;
+    max-width: 1100px;
     border-collapse: collapse;
     background: #ffffff;
-    border-radius: 14px;
+    border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
-    margin-bottom: 28px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    margin-bottom: 30px;
     border: none;
+    transition: box-shadow 0.3s ease;
 }
 
-/* ===== TABLE HEADER ===== */
+table:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.10);
+}
+
+/* ----- TABLE HEADER ----- */
+table thead tr {
+    background: #fafafa;
+    border-bottom: 2px solid #e0e0e0;
+}
+
 table th {
-    background: #f0f3f8;
-    color: #2d3748;
+    padding: 18px 20px;
+    text-align: left;
     font-weight: 600;
     font-size: 14px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    padding: 16px 18px;
-    text-align: left;
+    letter-spacing: 0.4px;
+    color: #878787;          /* muted grey like Flipkart */
+    background: transparent;
     border: none;
-    border-bottom: 2px solid #e2e8f0;
 }
 
-/* ===== TABLE CELLS ===== */
-table td {
-    padding: 16px 18px;
-    border: none;
-    border-bottom: 1px solid #edf2f7;
-    vertical-align: middle;
-    font-size: 15px;
-    color: #2d3748;
+/* ----- TABLE ROWS ----- */
+table tbody tr {
+    border-bottom: 1px solid #f0f0f0;
+    transition: background 0.15s ease;
 }
 
-table tr:last-child td {
+table tbody tr:hover {
+    background: #fafafa;
+}
+
+table tbody tr:last-child {
     border-bottom: none;
 }
 
-/* ===== PRODUCT NAME ===== */
-table td:first-child {
-    font-weight: 500;
-    color: #1a1a2e;
+/* ----- TABLE CELLS ----- */
+table td {
+    padding: 18px 20px;
+    vertical-align: middle;
+    font-size: 15px;
+    border: none;
+    color: #212121;
 }
 
-/* ===== PRICE & TOTAL COLUMNS ===== */
+/* ---- Product name ---- */
+table td:first-child {
+    font-weight: 500;
+    color: #212121;
+}
+
+/* ---- Price & Total columns ---- */
 table td:nth-child(2),
 table td:nth-child(4) {
     font-weight: 500;
-    color: #1a1a2e;
+    color: #212121;
 }
 
-/* ===== QUANTITY CONTROLS ===== */
+/* ---- Quantity controls (container) ---- */
 table td:nth-child(3) {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 12px 18px;
+    gap: 0;
+    padding: 12px 20px;
 }
 
+/* Quantity buttons – plus/minus */
 table td:nth-child(3) a {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
-    background: #f0f3f8;
-    color: #2d3748;
+    background: #f0f0f0;
+    color: #212121;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
     transition: all 0.2s ease;
     line-height: 1;
+    border: 1px solid transparent;
+    user-select: none;
 }
 
 table td:nth-child(3) a:hover {
-    background: #4361ee;
+    background: #2874f0;
     color: #ffffff;
-    transform: scale(1.05);
+    transform: scale(1.04);
+    box-shadow: 0 2px 8px rgba(40, 116, 240, 0.30);
 }
 
 table td:nth-child(3) a:active {
-    transform: scale(0.95);
+    transform: scale(0.92);
 }
 
-table td:nth-child(3) span,
-table td:nth-child(3) .quantity-value {
+/* Quantity number (the text between buttons) */
+table td:nth-child(3) .quantity-value,
+table td:nth-child(3) span:not(a) {
+    min-width: 36px;
+    text-align: center;
     font-weight: 600;
     font-size: 16px;
-    min-width: 24px;
-    text-align: center;
-    color: #1a1a2e;
+    color: #212121;
+    padding: 0 4px;
 }
 
-/* ===== REMOVE BUTTON ===== */
+/* We need to target the text node between <a> tags.
+   Since there is no wrapper, we can style the text directly.
+   But we can't style text nodes with CSS. We'll rely on the fact that
+   the text is inside <td> and we can style the children.
+   The existing HTML:
+   <td>
+       <a href="...">➖</a>
+       <%= rs.getInt("quantity") %>
+       <a href="...">➕</a>
+   </td>
+   So the quantity is a text node. We can't style it directly.
+   We can wrap it in a span in the JSP, but we cannot change the JSP.
+   So we can either style the td to center the content, or we can use
+   a workaround: set display:flex and justify-content:center on the td,
+   then all children (links and text) will be centered. The text node
+   will be in the flex flow. We can style it by setting a generic rule
+   for text nodes? Not possible. We can set the td to display:flex and
+   the text node will be treated as a flex item; we can style it by
+   setting a minimum width and text-align center on the td itself.
+   But we also have links which are flex items. So we can set:
+   td:nth-child(3) { display: flex; align-items: center; justify-content: center; gap: 0; }
+   Then the text node will be centered automatically.
+   We can also add a rule: td:nth-child(3) > * { ... } but that won't
+   target text nodes. However, we can set the td's font-weight and size
+   and it will apply to the text node. So we'll do that.
+*/
+
+table td:nth-child(3) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    font-weight: 600;
+    font-size: 16px;
+    color: #212121;
+}
+
+/* Ensure the buttons are not stretched */
+table td:nth-child(3) a {
+    flex-shrink: 0;
+}
+
+/* ---- Remove button ---- */
+table td:last-child {
+    text-align: center;
+}
+
 table td:last-child a {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     padding: 6px 16px;
-    background: #fee2e2;
-    color: #b91c1c;
+    background: transparent;
+    color: #d32f2f;
     text-decoration: none;
     border-radius: 20px;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 500;
     transition: all 0.2s ease;
     border: 1px solid transparent;
 }
 
+/* Add a trash icon using pseudo-element (Unicode) */
+table td:last-child a::before {
+    content: '\1F5D1';  /* 🗑️ */
+    font-size: 16px;
+    line-height: 1;
+    display: inline-block;
+    transition: transform 0.2s ease;
+}
+
 table td:last-child a:hover {
-    background: #fecaca;
-    border-color: #fca5a5;
+    background: #ffebee;
+    border-color: #ffcdd2;
     transform: translateY(-1px);
 }
 
-/* ===== GRAND TOTAL ROW ===== */
-table tr:last-child td {
-    background: #f8fafc;
+table td:last-child a:hover::before {
+    transform: scale(1.15);
+}
+
+/* ----- GRAND TOTAL ROW ----- */
+table tbody tr:last-child td {
+    background: #fafafa;
     font-weight: 600;
-    font-size: 16px;
-    padding: 18px 18px;
-    border-top: 2px solid #e2e8f0;
+    font-size: 17px;
+    padding: 20px 20px;
+    border-top: 2px solid #e0e0e0;
+    border-bottom: none;
 }
 
-table tr:last-child td:first-child {
+table tbody tr:last-child td:first-child {
     font-weight: 600;
-    color: #1a1a2e;
+    color: #212121;
 }
 
-table tr:last-child td:last-child {
-    font-size: 18px;
-    color: #4361ee;
+table tbody tr:last-child td:last-child {
+    font-size: 20px;
+    color: #2874f0;          /* primary blue */
+    font-weight: 700;
 }
 
-/* ===== ACTION LINKS (below table) ===== */
-a.continue-link,
-a.checkout-link {
-    display: inline-block;
-    padding: 12px 32px;
-    border-radius: 30px;
-    font-weight: 500;
-    font-size: 15px;
-    text-decoration: none;
-    transition: all 0.25s ease;
-    margin: 6px 8px;
-}
-
-a.continue-link {
-    background: transparent;
-    color: #4361ee;
-    border: 2px solid #4361ee;
-}
-
-a.continue-link:hover {
-    background: #4361ee;
-    color: #ffffff;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(67, 97, 238, 0.25);
-}
-
-a.checkout-link {
-    background: #4361ee;
-    color: #ffffff;
-    border: 2px solid #4361ee;
-}
-
-a.checkout-link:hover {
-    background: #3651d4;
-    border-color: #3651d4;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 24px rgba(67, 97, 238, 0.35);
-}
-
-/* ===== BUTTON GROUP ===== */
+/* ----- BUTTON GROUP (below table) ----- */
 .action-group {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 12px;
-    margin-top: 6px;
-}
-
-/* ===== EMPTY STATE HINT ===== */
-.empty-hint {
-    text-align: center;
-    padding: 40px 20px;
-    background: #ffffff;
-    border-radius: 14px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
-    max-width: 500px;
+    gap: 16px;
+    margin-top: 8px;
     width: 100%;
+    max-width: 600px;
 }
 
-.empty-hint p {
+a.continue-link,
+a.checkout-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 36px;
+    border-radius: 30px;
+    font-weight: 600;
     font-size: 16px;
-    color: #64748b;
-    margin-bottom: 16px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    min-width: 180px;
+    letter-spacing: 0.3px;
+    border: none;
+    cursor: pointer;
 }
 
-/* ===== RESPONSIVE ===== */
+/* Continue Shopping (outline) */
+a.continue-link {
+    background: transparent;
+    color: #2874f0;
+    border: 2px solid #2874f0;
+}
+
+a.continue-link:hover {
+    background: #2874f0;
+    color: #ffffff;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(40, 116, 240, 0.25);
+}
+
+/* Proceed to Checkout (solid) */
+a.checkout-link {
+    background: #2874f0;
+    color: #ffffff;
+    border: 2px solid #2874f0;
+}
+
+a.checkout-link:hover {
+    background: #1a5dc9;
+    border-color: #1a5dc9;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px rgba(40, 116, 240, 0.35);
+}
+
+/* Add small icons (optional – using pseudo) */
+a.continue-link::before {
+    content: '← ';
+    font-size: 18px;
+    transition: transform 0.2s ease;
+}
+
+a.continue-link:hover::before {
+    transform: translateX(-4px);
+}
+
+a.checkout-link::after {
+    content: ' →';
+    font-size: 18px;
+    transition: transform 0.2s ease;
+}
+
+a.checkout-link:hover::after {
+    transform: translateX(4px);
+}
+
+/* ----- RESPONSIVE DESIGN ----- */
+
+/* Tablets & small desktops */
 @media (max-width: 768px) {
     body {
-        padding: 24px 12px;
+        padding: 24px 16px;
     }
 
     h2 {
-        font-size: 22px;
-        margin-bottom: 20px;
+        font-size: 24px;
+        margin-bottom: 24px;
     }
 
     table {
-        border-radius: 10px;
+        border-radius: 12px;
         font-size: 14px;
     }
 
     table th,
     table td {
-        padding: 12px 12px;
-        font-size: 13px;
+        padding: 14px 14px;
+        font-size: 14px;
     }
 
     table td:nth-child(3) {
-        gap: 8px;
-        padding: 10px 12px;
+        padding: 10px 14px;
+        gap: 0;
     }
 
     table td:nth-child(3) a {
-        width: 28px;
-        height: 28px;
-        font-size: 14px;
+        width: 30px;
+        height: 30px;
+        font-size: 16px;
     }
 
     table td:last-child a {
         padding: 4px 12px;
-        font-size: 12px;
+        font-size: 13px;
     }
 
-    table tr:last-child td {
-        font-size: 14px;
-        padding: 14px 12px;
+    table tbody tr:last-child td {
+        font-size: 15px;
+        padding: 16px 14px;
     }
 
-    table tr:last-child td:last-child {
-        font-size: 16px;
+    table tbody tr:last-child td:last-child {
+        font-size: 18px;
     }
 
     a.continue-link,
     a.checkout-link {
-        padding: 10px 24px;
-        font-size: 14px;
-        margin: 4px 6px;
-    }
-
-    .action-group {
-        gap: 8px;
+        padding: 12px 28px;
+        font-size: 15px;
+        min-width: 150px;
     }
 }
 
+/* Mobile phones – convert to card layout */
 @media (max-width: 480px) {
-    /* Stack table into card-like rows */
+    /* Force table to behave like blocks */
     table,
     table thead,
     table tbody,
@@ -307,53 +411,92 @@ a.checkout-link:hover {
         display: block;
     }
 
+    /* Hide table header */
     table thead {
         display: none;
     }
 
-    table tr {
-        padding: 16px 14px;
-        border-bottom: 2px solid #edf2f7;
+    /* Each row becomes a card */
+    table tbody tr {
         background: #ffffff;
-        border-radius: 10px;
-        margin-bottom: 12px;
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+        border-radius: 14px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+        padding: 18px 16px;
+        margin-bottom: 16px;
+        border: none;
+        transition: box-shadow 0.2s ease;
     }
 
-    table tr:last-child {
+    table tbody tr:hover {
+        background: #ffffff;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.10);
+    }
+
+    table tbody tr:last-child {
         margin-bottom: 0;
-        border-bottom: none;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+        background: #fafafa;
+    }
+
+    table tbody tr:last-child:hover {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.10);
     }
 
     table td {
-        padding: 6px 0;
+        padding: 8px 0;
         border: none;
         display: flex;
         justify-content: space-between;
         align-items: center;
         font-size: 14px;
+        background: transparent;
     }
+
+    /* Add labels using data attributes (we need to add data-label in JSP – but we can't)
+       We'll use CSS pseudo with content: attr(data-label) but since we don't have that,
+       we can use a workaround: use ::before with fixed content for each column position.
+       But because we cannot change the HTML, we can't add data-label.
+       Alternative: use nth-child to add static labels using ::before.
+       However, we can use the fact that we know the column order.
+    */
 
     table td::before {
         content: attr(data-label);
         font-weight: 600;
-        color: #64748b;
+        color: #878787;
         font-size: 13px;
         text-transform: uppercase;
         letter-spacing: 0.3px;
+        margin-right: 10px;
+        flex-shrink: 0;
     }
 
-    table td:first-child {
-        font-weight: 600;
-        font-size: 15px;
-    }
-
+    /* Since we don't have data-label, we can set content manually for each column */
     table td:first-child::before {
         content: 'Product';
     }
-
     table td:nth-child(2)::before {
         content: 'Price';
+    }
+    table td:nth-child(3)::before {
+        content: 'Quantity';
+    }
+    table td:nth-child(4)::before {
+        content: 'Total';
+    }
+    table td:last-child::before {
+        content: 'Action';
+    }
+
+    /* Override for grand total row – remove labels */
+    table tbody tr:last-child td::before {
+        display: none;
+    }
+
+    /* Style the actual content */
+    table td:first-child {
+        font-weight: 600;
+        font-size: 15px;
     }
 
     table td:nth-child(3) {
@@ -364,79 +507,90 @@ a.checkout-link:hover {
         gap: 0;
     }
 
-    table td:nth-child(3)::before {
-        content: 'Quantity';
-        font-weight: 600;
-        color: #64748b;
-        font-size: 13px;
-        text-transform: uppercase;
-        letter-spacing: 0.3px;
+    table td:nth-child(3) a {
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
     }
 
-    table td:nth-child(4)::before {
-        content: 'Total';
-    }
-
+    /* Remove button – align right */
     table td:last-child {
         justify-content: flex-end;
-        gap: 12px;
-        padding-top: 8px;
-        border-top: 1px dashed #e2e8f0;
+        padding-top: 10px;
         margin-top: 6px;
+        border-top: 1px dashed #e0e0e0;
     }
 
-    table td:last-child::before {
-        content: 'Action';
-        font-weight: 600;
-        color: #64748b;
+    table td:last-child a {
+        padding: 6px 14px;
         font-size: 13px;
-        text-transform: uppercase;
-        letter-spacing: 0.3px;
     }
 
-    table td:nth-child(3) a {
-        width: 30px;
-        height: 30px;
-        font-size: 15px;
-    }
-
-    table td:nth-child(3) .quantity-value {
-        min-width: 28px;
-    }
-
-    table tr:last-child td {
+    /* Grand total row – make it stand out */
+    table tbody tr:last-child td {
         display: flex;
         justify-content: space-between;
+        padding: 12px 0;
         background: transparent;
-        padding: 10px 0;
-        border-top: 2px solid #e2e8f0;
+        border-top: 2px solid #e0e0e0;
     }
 
-    table tr:last-child td:first-child {
-        font-size: 15px;
+    table tbody tr:last-child td:first-child {
+        font-size: 16px;
+        font-weight: 600;
     }
 
-    table tr:last-child td:last-child {
-        font-size: 18px;
+    table tbody tr:last-child td:last-child {
+        font-size: 20px;
+        font-weight: 700;
+        color: #2874f0;
     }
 
-    /* hide pseudo labels on grand total row */
-    table tr:last-child td::before {
-        display: none;
+    /* Buttons stack vertically */
+    .action-group {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        max-width: 320px;
+        width: 100%;
     }
 
     a.continue-link,
     a.checkout-link {
-        padding: 10px 20px;
-        font-size: 13px;
         width: 100%;
-        text-align: center;
-        margin: 4px 0;
+        min-width: unset;
+        padding: 14px 20px;
+        font-size: 15px;
     }
 
-    .action-group {
-        flex-direction: column;
-        width: 100%;
-        max-width: 320px;
+    a.continue-link::before,
+    a.checkout-link::after {
+        display: none; /* remove arrows on mobile for cleaner look */
+    }
+}
+
+/* Small phones (under 380px) */
+@media (max-width: 380px) {
+    body {
+        padding: 16px 10px;
+    }
+
+    table tbody tr {
+        padding: 14px 12px;
+    }
+
+    table td {
+        font-size: 13px;
+        padding: 6px 0;
+    }
+
+    table td:first-child {
+        font-size: 14px;
+    }
+
+    table td:nth-child(3) a {
+        width: 28px;
+        height: 28px;
+        font-size: 14px;
     }
 }
