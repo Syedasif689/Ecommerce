@@ -76,16 +76,22 @@ public class UserDAO {
 
         PreparedStatement ps = con.prepareStatement(sql);
 
-        ps.setString(1, name);
-        ps.setString(2, email);
+        ps.setString(1, name.trim());
+        ps.setString(2, email.trim());
+
+        System.out.println("Checking Name = " + name);
+        System.out.println("Checking Email = " + email);
 
         ResultSet rs = ps.executeQuery();
 
-        if(rs.next()) {
+        if (rs.next()) {
+            System.out.println("Existing User Found");
             exists = true;
+        } else {
+            System.out.println("No Existing User");
         }
 
-    } catch(Exception e) {
+    } catch (Exception e) {
         e.printStackTrace();
     }
 

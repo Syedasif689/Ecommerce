@@ -14,49 +14,56 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/RegisterServlet")
 public class RegisterServlet extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
-
     protected void doPost(HttpServletRequest request,
-                          HttpServletResponse response)
+            HttpServletResponse response)
             throws ServletException, IOException {
-String name = request.getParameter("name");
-String email = request.getParameter("email");
-String password = request.getParameter("password");
 
-User user = new User();
+        System.out.println("========== RegisterServlet Called ==========");
 
-user.setName(name);
-user.setEmail(email);
-user.setPassword(password);
+        String name = request.getParameter("name");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
 
-UserDAO dao = new UserDAO();
+        System.out.println("Name: " + name);
+        System.out.println("Email: " + email);
 
-// Check if user already exists
-if (dao.isUserExists(name, email)) {
+        User user = new User();
+        user.setName(name);
+        user.setEmail(email);
+        user.setPassword(password);
 
-    request.setAttribute("error",
-            "Username or Email already exists.");
+        UserDAO dao = new UserDAO();
 
-    request.getRequestDispatcher("register.jsp")
-           .forward(request, response);
+        boolean exists = dao.isUserExists(name, email);
 
-    return;
-}
+        System.out.println("User Exists = " + exists);
 
-// Register new user
-boolean status = dao.registerUser(user);
+        if (exists) {
 
-if (status) {
+            request.setAttribute("error",
+                    "Username or Email already exists.");
 
-    response.sendRedirect("login.jsp");
+            request.getRequestDispatcher("register.jsp")
+                   .forward(request, response);
+            return;
+        }
 
-} else {
+        boolean status = dao.registerUser(user);
 
-    request.setAttribute("error",
-            "Registration Failed.");
+        System.out.println("Register Status = " + status);
 
-    request.getRequestDispatcher("register.jsp")
-           .forward(request, response);
-}
+        if (status) {
+            System.out.println("Redirecting to login.jsp");
+            response.sendRedirect("login.jsp");
+            return;
+        }
+
+        System.out.println("Registration Failed");
+
+        request.setAttribute("error",
+                "Registration Failed.");
+
+        request.getRequestDispatcher("register.jsp")
+               .forward(request, response);
     }
 }

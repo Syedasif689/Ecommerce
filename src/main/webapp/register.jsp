@@ -134,8 +134,8 @@ if(error != null){
                 placeholder="Create a Password"
                 required>
 
-            <button type="submit">
-                Register
+            <button type="submit" id="registerBtn">
+              Register
             </button>
 
         </form>
@@ -179,7 +179,18 @@ if(error != null){
     </div>
 
 </div>
+<script>
+document.querySelector("form").addEventListener("submit", function () {
 
+    const btn = document.getElementById("registerBtn");
+
+    btn.disabled = true;
+    btn.innerHTML = "Please Wait...";
+
+    btn.style.opacity = "0.6";
+    btn.style.cursor = "not-allowed";
+});
+</script>
 </body>
 
 </html>

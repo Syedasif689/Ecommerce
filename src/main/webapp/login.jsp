@@ -77,7 +77,7 @@ pageEncoding="UTF-8"%>
             <br><br>
 
              <label class="remember">
-              <input type="checkbox" name="rememberMe">
+              <input type="checkbox" name="rememberMe" id="loginbtn">
                  Remember Me
                </label>
 
@@ -110,6 +110,14 @@ pageEncoding="UTF-8"%>
     </div>
 
 </div>
+<script>
+document.querySelector("form").addEventListener("submit", function () {
 
+    const btn = document.getElementById("loginBtn");
+
+    btn.disabled = true;
+    btn.innerHTML = "Logging In...";
+});
+</script>
 </body>
 </html>
