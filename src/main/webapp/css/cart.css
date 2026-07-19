@@ -289,19 +289,31 @@ a.checkout-link:hover::after {
 @media (max-width: 600px) {
     /* Force table to behave like blocks */
     table,
-    table thead,
     table tbody,
     table tr,
     table td,
     table th {
-        display: block;
+        display: block !important;
     }
 
-    table thead {
-        display: none; /* hide header */
+    /* ---- DESTROY THE HEADER ROW ----
+       Hide the entire first row (header) and all <th> elements
+    */
+    table thead,
+    table thead tr,
+    table thead th,
+    table tr:first-child,
+    table tr:first-child th,
+    table th {
+        display: none !important;
+        height: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border: none !important;
+        overflow: hidden !important;
     }
 
-    /* Each row becomes a card */
+    /* ---- Each product row becomes a card ---- */
     table tbody tr {
         background: #ffffff;
         border-radius: 14px;
@@ -310,6 +322,7 @@ a.checkout-link:hover::after {
         margin-bottom: 14px;
         border: none !important;
         transition: box-shadow 0.2s ease;
+        display: block !important;
     }
 
     table tbody tr:hover {
@@ -322,16 +335,18 @@ a.checkout-link:hover::after {
         background: #fafafa;
     }
 
-    /* Each cell becomes a flex row with label + value */
+    /* ---- Each cell becomes a flex row with label + value ---- */
     table td {
         padding: 8px 0;
-        border: none;
-        display: flex;
+        border: none !important;
+        display: flex !important;
         justify-content: space-between;
         align-items: center;
         font-size: 14px;
         background: transparent;
         flex-wrap: wrap;
+        width: 100% !important;
+        box-sizing: border-box;
     }
 
     /* Add labels using ::before with fixed content */
@@ -343,6 +358,7 @@ a.checkout-link:hover::after {
         letter-spacing: 0.3px;
         margin-right: 10px;
         flex-shrink: 0;
+        content: ''; /* will be overridden below */
     }
 
     table td:first-child::before {
@@ -363,18 +379,18 @@ a.checkout-link:hover::after {
 
     /* Hide labels on the grand total row */
     table tbody tr:last-child td::before {
-        display: none;
+        display: none !important;
     }
 
-    /* Special styles for product name */
+    /* ---- Special styles for product name ---- */
     table td:first-child {
         font-weight: 600;
         font-size: 15px;
     }
 
-    /* Quantity controls – ensure they stay inline */
+    /* ---- Quantity controls – ensure they stay inline ---- */
     table td:nth-child(3) {
-        display: flex;
+        display: flex !important;
         justify-content: space-between;
         align-items: center;
         padding: 6px 0;
@@ -387,7 +403,7 @@ a.checkout-link:hover::after {
         font-size: 18px;
     }
 
-    /* Remove button – right aligned */
+    /* ---- Remove button – right aligned ---- */
     table td:last-child {
         justify-content: flex-end;
         padding-top: 10px;
@@ -400,9 +416,9 @@ a.checkout-link:hover::after {
         font-size: 13px;
     }
 
-    /* Grand total row */
+    /* ---- Grand total row ---- */
     table tbody tr:last-child td {
-        display: flex;
+        display: flex !important;
         justify-content: space-between;
         padding: 12px 0;
         background: transparent;
@@ -420,7 +436,7 @@ a.checkout-link:hover::after {
         color: #2874f0;
     }
 
-    /* Buttons stack vertically */
+    /* ---- Buttons stack vertically ---- */
     .action-group {
         flex-direction: column;
         align-items: center;

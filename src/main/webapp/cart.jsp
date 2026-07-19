@@ -31,7 +31,7 @@ double total = 0;
 
 <h2>Shopping Cart</h2>
 
-<table border="1">
+<table>
 <tr>
     <th>Product</th>
     <th>Price</th>
