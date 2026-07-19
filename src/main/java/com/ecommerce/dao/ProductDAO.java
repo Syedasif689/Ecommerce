@@ -140,45 +140,48 @@ public class ProductDAO {
     }
 
     // Get product by ID
-    public Product getProductById(int productId) {
+    // Get product by ID
+public Product getProductById(int productId) {
 
-        Product product = null;
+    Product product = null;
 
-        try (
-            Connection con = DBConnection.getConnection();
-            PreparedStatement ps =
-                    con.prepareStatement("SELECT p.*, s.shop_name, s.seller_name " +
-                                          "FROM products p " +
-                                          "JOIN sellers s ON p.seller_id = s.seller_id " +
-                                          "WHERE p.id = ?")
-        ) {
+    try (
+        Connection con = DBConnection.getConnection();
+        PreparedStatement ps =
+            con.prepareStatement(
+                "SELECT * FROM products WHERE id = ?"
+            )
+    ) {
 
-            ps.setInt(1, productId);
+        ps.setInt(1, productId);
 
-            try (ResultSet rs = ps.executeQuery()) {
+        try(ResultSet rs = ps.executeQuery()) {
 
-                if (rs.next()) {
+            if(rs.next()) {
 
-                    product = new Product();
+                product = new Product();
 
-                    product.setId(rs.getInt("id"));
-                    product.setName(rs.getString("name"));
-                    product.setPrice(rs.getDouble("price"));
-                    product.setDescription(rs.getString("description"));
+                product.setId(rs.getInt("id"));
+                product.setName(rs.getString("name"));
+                product.setPrice(rs.getDouble("price"));
+                product.setDescription(rs.getString("description"));
 
-                    product.setSellerId(rs.getInt("seller_id"));
-                    product.setImageUrl(rs.getString("image_url"));
-                    product.setShopName(rs.getString("shop_name"));
-                    product.setSellerName(rs.getString("seller_name"));
-                }
+                product.setSellerId(
+                    rs.getInt("seller_id")
+                );
+
+                product.setImageUrl(
+                    rs.getString("image_url")
+                );
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
 
-        return product;
+    } catch(Exception e) {
+        e.printStackTrace();
     }
+
+    return product;
+}
  // Search products by name
     public List<Product> searchProducts(String keyword) {
 

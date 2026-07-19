@@ -32,9 +32,11 @@ public class EditProductServlet extends HttpServlet {
         ProductDAO dao = new ProductDAO();
 
 
-        Product product =
-                dao.getProductById(id);
+       Product product =
+        dao.getProductById(id);
 
+        System.out.println("Editing Product ID : " + id);
+        System.out.println("Product Object : " + product);
 
         request.setAttribute(
                 "product",
