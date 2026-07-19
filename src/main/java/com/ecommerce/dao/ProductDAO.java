@@ -225,27 +225,31 @@ public boolean updateProduct(Product product) {
 
     boolean status = false;
 
-    try (
+    try(
         Connection con = DBConnection.getConnection();
+
         PreparedStatement ps = con.prepareStatement(
-            "UPDATE products SET name=?, price=?, description=? WHERE id=?"
+        "UPDATE products SET name=?, price=?, description=?, image_url=? WHERE id=?"
         )
-    ) {
+    ){
 
         ps.setString(1, product.getName());
         ps.setDouble(2, product.getPrice());
         ps.setString(3, product.getDescription());
-        ps.setInt(4, product.getId());
+        ps.setString(4, product.getImageUrl());
+        ps.setInt(5, product.getId());
+
 
         int rows = ps.executeUpdate();
 
-        if(rows > 0) {
+        if(rows > 0){
             status = true;
         }
 
-    } catch(Exception e) {
+    }catch(Exception e){
         e.printStackTrace();
     }
+
 
     return status;
 }
