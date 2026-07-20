@@ -79,6 +79,8 @@ public Product getProductForEdit(int productId) {
     return product;
 }
 
+
+
     // Get products uploaded by a specific seller
     public List<Product> getProductsBySeller(int sellerId) {
 
