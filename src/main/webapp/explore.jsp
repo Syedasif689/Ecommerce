@@ -6,15 +6,8 @@ pageEncoding="UTF-8"%>
 <%
 ProductDAO dao = new ProductDAO();
 List<Product> products = dao.getAllProducts();
-
 %>
-<%
-for(Product p : products){
-    out.println("<p>" + p.getId() + " - " + p.getName() + "</p>");
-}
-%>
-<h1 style="color:red;">THIS IS EXPLORE PAGE</h1>
-<p>Total Products: <%= products.size() %></p><!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
