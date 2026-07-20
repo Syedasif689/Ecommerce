@@ -33,6 +33,41 @@ pageEncoding="UTF-8"%>
 
     <div class="container">
 
+        <!-- ========================================================= -->
+        <!--  SEARCH BAR - NOW ON TOP OF THE PAGE (above the header)    -->
+        <!-- ========================================================= -->
+        <div class="search-bar-container">
+
+            <form action="<%= request.getContextPath() %>/search" method="get" class="search-form">
+
+                <i class="fa-solid fa-search search-icon"></i>
+
+                <input
+                    type="text"
+                    name="search"
+                    placeholder="Search for products, brands, or categories..."
+                    value="<%= searchQuery %>"   
+                    autofocus
+                >
+
+                <button type="submit">
+                    <i class="fa-solid fa-arrow-right"></i> Search
+                </button>
+
+            </form>
+
+            <% if (!searchQuery.isEmpty()) { %>
+            <p class="search-hint">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                Showing results for: <strong><%= searchQuery %></strong>
+            </p>
+            <% } %>
+
+        </div>
+
+        <!-- ========================================================= -->
+        <!--  HEADER (now comes after the search bar)                   -->
+        <!-- ========================================================= -->
         <div class="header">
 
             <div>
@@ -59,36 +94,8 @@ pageEncoding="UTF-8"%>
         </div>
 
         <!-- ========================================================= -->
-        <!--     SEARCH BAR (visible even after search, no inline CSS)   -->
+        <!--  PRODUCTS or EMPTY STATE                                   -->
         <!-- ========================================================= -->
-        <div class="search-bar-container">
-
-            <form action="search" method="get" class="search-form">
-
-                <i class="fa-solid fa-search search-icon"></i>
-
-                <input
-                    type="text"
-                    name="search"
-                    placeholder="Search for products, brands, or categories..."
-                    value="<%= searchQuery %>"
-                    autofocus
-                >
-
-                <button type="submit">
-                    <i class="fa-solid fa-arrow-right"></i> Search
-                </button>
-
-            </form>
-
-            <% if (!searchQuery.isEmpty()) { %>
-            <p class="search-hint">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                Showing results for: <strong><%= searchQuery %></strong>
-            </p>
-            <% } %>
-
-        </div>
 
         <%
         if (products != null && !products.isEmpty()){
