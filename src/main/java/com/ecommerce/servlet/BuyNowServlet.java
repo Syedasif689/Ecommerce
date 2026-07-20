@@ -25,19 +25,18 @@ public class BuyNowServlet extends HttpServlet {
 
         ProductDAO dao = new ProductDAO();
 
+        // Use getProductById() for customer-facing pages
         Product product = dao.getProductById(productId);
 
-        if(product == null){
+        if (product == null) {
 
             response.sendRedirect("home.jsp");
-
             return;
         }
 
         HttpSession session = request.getSession();
 
         session.setAttribute("buyNowProduct", product);
-
         session.setAttribute("buyNowTotal", product.getPrice());
 
         response.sendRedirect("checkout.jsp");

@@ -43,6 +43,41 @@ public class ProductDAO {
 
         return products;
     }
+    // Get product for editing
+public Product getProductForEdit(int productId) {
+
+    Product product = null;
+
+    try (
+        Connection con = DBConnection.getConnection();
+        PreparedStatement ps = con.prepareStatement(
+            "SELECT * FROM products WHERE id = ?"
+        )
+    ) {
+
+        ps.setInt(1, productId);
+
+        try (ResultSet rs = ps.executeQuery()) {
+
+            if (rs.next()) {
+
+                product = new Product();
+
+                product.setId(rs.getInt("id"));
+                product.setName(rs.getString("name"));
+                product.setPrice(rs.getDouble("price"));
+                product.setDescription(rs.getString("description"));
+                product.setSellerId(rs.getInt("seller_id"));
+                product.setImageUrl(rs.getString("image_url"));
+            }
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    return product;
+}
 
     // Get products uploaded by a specific seller
     public List<Product> getProductsBySeller(int sellerId) {
@@ -140,24 +175,26 @@ public class ProductDAO {
     }
 
     // Get product by ID
-    // Get product by ID
+  // Get product by ID (for product details page)
 public Product getProductById(int productId) {
 
     Product product = null;
 
     try (
         Connection con = DBConnection.getConnection();
-        PreparedStatement ps =
-            con.prepareStatement(
-                "SELECT * FROM products WHERE id = ?"
-            )
+        PreparedStatement ps = con.prepareStatement(
+            "SELECT p.*, s.shop_name, s.seller_name " +
+            "FROM products p " +
+            "JOIN sellers s ON p.seller_id = s.seller_id " +
+            "WHERE p.id = ?"
+        )
     ) {
 
         ps.setInt(1, productId);
 
-        try(ResultSet rs = ps.executeQuery()) {
+        try (ResultSet rs = ps.executeQuery()) {
 
-            if(rs.next()) {
+            if (rs.next()) {
 
                 product = new Product();
 
@@ -165,18 +202,15 @@ public Product getProductById(int productId) {
                 product.setName(rs.getString("name"));
                 product.setPrice(rs.getDouble("price"));
                 product.setDescription(rs.getString("description"));
+                product.setSellerId(rs.getInt("seller_id"));
+                product.setImageUrl(rs.getString("image_url"));
 
-                product.setSellerId(
-                    rs.getInt("seller_id")
-                );
-
-                product.setImageUrl(
-                    rs.getString("image_url")
-                );
+                product.setShopName(rs.getString("shop_name"));
+                product.setSellerName(rs.getString("seller_name"));
             }
         }
 
-    } catch(Exception e) {
+    } catch (Exception e) {
         e.printStackTrace();
     }
 
