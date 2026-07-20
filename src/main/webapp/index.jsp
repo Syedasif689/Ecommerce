@@ -76,11 +76,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         User Login
     </a>
 
-    <a href="seller-login.jsp" class="btn seller-login-btn">
-        <i class="fa-solid fa-shop"></i>
-        Seller Login
-    </a>
-
     <a href="register.jsp" class="btn register-btn">
         <i class="fa-solid fa-user-plus"></i>
         Create Account

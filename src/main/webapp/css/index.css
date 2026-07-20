@@ -137,7 +137,7 @@ body {
     justify-content: space-between;
     gap: 60px;
     margin: auto;
-    padding: 60px; /* merged from second .hero block */
+    padding: 60px;
     background: rgba(255, 255, 255, .05);
     backdrop-filter: blur(10px);
     border-radius: 25px;
@@ -148,7 +148,6 @@ body {
     animation: slideLeft 1s ease;
 }
 
-/* missing keyframe added */
 @keyframes slideLeft {
     from {
         opacity: 0;
@@ -163,7 +162,7 @@ body {
 .tagline {
     display: inline-block;
     background: rgba(255, 255, 255, .08);
-    padding: 60px;
+    padding: 12px 24px;   /* fixed: was 60px (way too large) */
     border: 1px solid rgba(255, 255, 255, .1);
     border-radius: 25px;
     margin-bottom: 20px;
@@ -234,7 +233,7 @@ body {
     margin: 0 auto 80px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 15px; /* merged from later override */
+    gap: 15px;
 }
 
 .feature-card {
@@ -270,7 +269,26 @@ body {
     line-height: 1.5;
 }
 
-/* Login Button */
+/* ----- BUTTON VARIANTS (added for the JSP) ----- */
+
+/* Explore & Seller buttons */
+.explore-btn {
+    background: #2563eb;
+    color: white;
+}
+.explore-btn:hover {
+    background: #1d4ed8;
+}
+
+.seller-btn {
+    background: #7c3aed;
+    color: white;
+}
+.seller-btn:hover {
+    background: #6d28d9;
+}
+
+/* Login & Register buttons (already existed, but we keep them) */
 .login-btn {
     background: #2563eb;
     color: white;
@@ -279,7 +297,6 @@ body {
     background: #1d4ed8;
 }
 
-/* Register Button */
 .register-btn {
     background: #16a34a;
     color: white;
@@ -287,6 +304,21 @@ body {
 .register-btn:hover {
     background: #15803d;
 }
+
+/* Auth buttons container (new) */
+.auth-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 10px;
+}
+.auth-buttons .btn {
+    flex: 1 1 180px;    /* ensures they share space nicely */
+    margin: 0;          /* remove default margin so flex gap works */
+}
+
+/* ----- ANIMATIONS ----- */
 
 @keyframes fadeUp {
     from {
@@ -308,7 +340,8 @@ body {
     }
 }
 
-/* Responsive */
+/* ----- RESPONSIVE ----- */
+
 @media (max-width: 992px) {
     .hero {
         flex-direction: column-reverse;
@@ -339,7 +372,9 @@ body {
             "tag tag"
             "title title"
             "text video"
-            "buttons buttons";
+            "buttons buttons"
+            "divider divider"
+            "auth auth";
         gap: 15px;
         padding: 20px;
     }
@@ -351,6 +386,8 @@ body {
         border: 1px solid rgba(255, 255, 255, .1);
         border-radius: 25px;
         backdrop-filter: blur(4px);
+        grid-area: tag;
+        justify-self: center;
     }
 
     .hero-text {
@@ -396,6 +433,24 @@ body {
         width: 140px;
         margin: 0;
         font-size: 14px;
+    }
+
+    /* In mobile, hero-buttons and auth-buttons use the same button width */
+    .auth-buttons {
+        grid-area: auth;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 5px;
+    }
+    .auth-buttons .btn {
+        width: 140px;
+        flex: unset;
+    }
+
+    .divider {
+        grid-area: divider;
+        margin: 10px 0;
     }
 
     .features {
