@@ -4,174 +4,152 @@
 pageEncoding="UTF-8"%>
 
 <%
-    List<Product> products = (List<Product>) request.getAttribute("products");
-    // Keep the search term to display in the input field
-    String searchQuery = request.getParameter("search");
-    if (searchQuery == null) {
-        searchQuery = "";
-    }
+List<Product> products =
+(List<Product>) request.getAttribute("products");
 %>
-
+<%
+String keyword = (String) request.getAttribute("keyword");
+%>
 <!DOCTYPE html>
 <html>
 
 <head>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Search Results</title>
+<title>Search Results</title>
 
-    <link rel="stylesheet" href="css/search-result.css">
-    <link rel="stylesheet" href="css/security.css">
-    <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<link rel="stylesheet" href="css/search-result.css">
+<link rel="stylesheet" href="css/security.css">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
 </head>
 
 <body>
 
-    <div class="container">
+<div class="container">
 
-        <!-- ========================================================= -->
-        <!--  SEARCH BAR - NOW ON TOP OF THE PAGE (above the header)    -->
-        <!-- ========================================================= -->
-        <div class="search-bar-container">
+    <div class="header">
+        
 
-            <form action="<%= request.getContextPath() %>/search" method="get" class="search-form">
+    <h1>
+        <i class="fa-solid fa-magnifying-glass"></i>
+        Search Results
+    </h1>
 
-                <i class="fa-solid fa-search search-icon"></i>
+    <form action="SearchServlet" method="get" class="search-form">
 
-                <input
-                    type="text"
-                    name="search"
-                    placeholder="Search for products, brands, or categories..."
-                    value="<%= searchQuery %>"   
-                    autofocus
-                >
+        <input
+            type="text"
+            name="keyword"
+            value="<%= keyword != null ? keyword : "" %>"
+            placeholder="Search products..."
+            required>
 
-                <button type="submit">
-                    <i class="fa-solid fa-arrow-right"></i> Search
-                </button>
+        <button type="submit">
+            <i class="fa-solid fa-search"></i>
+        </button>
 
-            </form>
+    </form>
 
-            <% if (!searchQuery.isEmpty()) { %>
-            <p class="search-hint">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                Showing results for: <strong><%= searchQuery %></strong>
-            </p>
-            <% } %>
+    <a href="home.jsp" class="back-btn">
+        <i class="fa-solid fa-house"></i>
+        Home
+    </a>
 
-        </div>
+</div>
 
-        <!-- ========================================================= -->
-        <!--  HEADER (now comes after the search bar)                   -->
-        <!-- ========================================================= -->
-        <div class="header">
+<div class="search-info">
 
-            <div>
+    <h2>
+        Search Results for
+        <span>"<%= keyword %>"</span>
+    </h2>
 
-                <h1>
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    Search Results
-                </h1>
+   <p>
+    <%= (products != null) ? products.size() : 0 %> product(s) found
+</p>
 
-                <p>
-                    Browse products matching your search.
-                </p>
+</div>
+<%
+if(products != null && !products.isEmpty()){
+%>
 
-            </div>
+<div class="products">
 
-            <a href="home.jsp" class="back-btn">
+<%
+for(Product product : products){
+%>
 
-                <i class="fa-solid fa-house"></i>
+<div class="product-card">
 
-                Home
+    <img src="<%= product.getImageUrl() %>">
 
-            </a>
+    <div class="card-content">
 
-        </div>
+        <h3>
+            <%= product.getName() %>
+        </h3>
 
-        <!-- ========================================================= -->
-        <!--  PRODUCTS or EMPTY STATE                                   -->
-        <!-- ========================================================= -->
+        <div class="price">
 
-        <%
-        if (products != null && !products.isEmpty()){
-        %>
-
-        <div class="products">
-
-            <%
-            for(Product product : products){
-            %>
-
-            <div class="product-card">
-
-                <img src="<%= product.getImageUrl() %>" alt="<%= product.getName() %>">
-
-                <div class="card-content">
-
-                    <h3>
-                        <%= product.getName() %>
-                    </h3>
-
-                    <div class="price">
-
-                        ₹<%= product.getPrice() %>
-
-                    </div>
-
-                    <p>
-                        <%= product.getDescription() %>
-                    </p>
-
-                    <a href="products.jsp" class="view-btn">
-
-                        <i class="fa-solid fa-eye"></i>
-
-                        View Product
-
-                    </a>
-
-                </div>
-
-            </div>
-
-            <%
-            }
-            %>
+            ₹<%= product.getPrice() %>
 
         </div>
 
-        <%
-        } else {
-        %>
+        <p>
+            <%= product.getDescription() %>
+        </p>
 
-        <div class="empty-state">
+       <a href="product-details.jsp?id=<%= product.getId() %>" class="view-btn">
 
-            <i class="fa-solid fa-box-open"></i>
+            <i class="fa-solid fa-eye"></i>
 
-            <h2>No Products Found</h2>
+            View Product
 
-            <p>
-                Sorry! We couldn't find any matching products for "<strong><%= searchQuery %></strong>".
-            </p>
-
-            <a href="products.jsp">
-
-                Browse All Products
-
-            </a>
-
-        </div>
-
-        <%
-        }
-        %>
+        </a>
 
     </div>
+
+</div>
+
+<%
+}
+%>
+
+</div>
+
+<%
+}else{
+%>
+
+<div class="empty-state">
+
+    <i class="fa-solid fa-box-open"></i>
+
+    <h2>No Products Found</h2>
+
+<p>
+
+No results found for
+<strong>"<%= keyword %>"</strong>.
+
+Try searching with another keyword.
+
+</p>
+
+    <a href="home.jsp" class="view-btn">
+    Browse All Products
+</a>
+</div>
+
+<%
+}
+%>
+
+</div>
 
 </body>
 </html>

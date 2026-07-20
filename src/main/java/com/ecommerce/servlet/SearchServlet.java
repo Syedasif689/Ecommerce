@@ -15,9 +15,8 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/SearchServlet")
 public class SearchServlet extends HttpServlet {
 
-    @Override
     protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response)
+            HttpServletResponse response)
             throws ServletException, IOException {
 
         String keyword = request.getParameter("keyword");
@@ -27,8 +26,10 @@ public class SearchServlet extends HttpServlet {
         List<Product> products = dao.searchProducts(keyword);
 
         request.setAttribute("products", products);
+        request.setAttribute("keyword", keyword);
 
-        request.getRequestDispatcher("search-results.jsp")
+        request.getRequestDispatcher("search-result.jsp")
                .forward(request, response);
     }
+
 }
