@@ -83,7 +83,8 @@ if(products != null && !products.isEmpty()){
 for(Product product : products){
 %>
 
-<div class="product-card">
+<div class="product-card"
+     onclick="window.location='product-details.jsp?id=<%= product.getId() %>'">
 
     <img src="<%= product.getImageUrl() %>">
 

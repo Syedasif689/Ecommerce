@@ -28,7 +28,7 @@ public class SearchServlet extends HttpServlet {
         request.setAttribute("products", products);
         request.setAttribute("keyword", keyword);
 
-        request.getRequestDispatcher("search-result.jsp")
+        request.getRequestDispatcher("search-results.jsp")
                .forward(request, response);
     }
 
