@@ -42,6 +42,27 @@
     animation-duration:18s;
     animation-delay:2s;
 }
+.divider{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:25px 0;
+}
+
+.divider::before,
+.divider::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:#d1d5db;
+}
+
+.divider span{
+    margin:0 15px;
+    font-weight:600;
+    color:#666;
+    letter-spacing:1px;
+}
 
 .floating-icons i:nth-child(3){
     left:50%;

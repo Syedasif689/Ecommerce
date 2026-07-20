@@ -41,30 +41,53 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             Online Shopping Platform
         </span>
 
-        <h1>
-            Shop Smart, Save More,
-            Live Better.
-        </h1>
+       <h1>
+            Discover Amazing Products
+            From Trusted Sellers
+      </h1>
 
-        <p>
-            Explore thousands of quality products from trusted sellers.
-            Enjoy secure payments, fast delivery, easy returns, and
-            exclusive deals—all in one place.
-        </p>
+       <p>
+           Browse thousands of products across multiple categories,
+           discover trusted sellers, and enjoy a seamless shopping
+           experience with secure payments, fast delivery, and exciting offers.
+       </p>
 
         <div class="hero-buttons">
-           <a href="login.jsp" class="btn login-btn">
-    <i class="fa-solid fa-right-to-bracket"></i>
-    Login
-</a>
 
-<a href="register.jsp" class="btn register-btn">
-    <i class="fa-solid fa-user-plus"></i>
-    Register
-</a>
-        </div>
+    <a href="explore.jsp" class="btn explore-btn">
+        <i class="fa-solid fa-compass"></i>
+        Explore Products
+    </a>
 
-    </div>
+    <a href="seller-register.jsp" class="btn seller-btn">
+        <i class="fa-solid fa-store"></i>
+        Become Seller
+    </a>
+
+</div>
+<div class="divider">
+    <span>OR</span>
+</div>
+
+<div class="auth-buttons">
+
+    <a href="login.jsp" class="btn login-btn">
+        <i class="fa-solid fa-right-to-bracket"></i>
+        User Login
+    </a>
+
+    <a href="seller-login.jsp" class="btn seller-login-btn">
+        <i class="fa-solid fa-shop"></i>
+        Seller Login
+    </a>
+
+    <a href="register.jsp" class="btn register-btn">
+        <i class="fa-solid fa-user-plus"></i>
+        Create Account
+    </a>
+
+</div>
+</div>
 
    <div class="hero-image">
     <video autoplay muted loop playsinline>
