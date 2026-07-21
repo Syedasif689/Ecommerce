@@ -69,11 +69,18 @@ String googleClientId = System.getenv("GOOGLE_CLIENT_ID");
 
             <label>Password</label>
 
+        <div class="password-box">
+
             <input
-                type="password"
-                name="password"
-                placeholder="Enter your password"
-                required>
+             type="password"
+             id="password"
+             name="password"
+             placeholder="Enter your password"
+            required>
+
+            <i class="fa-solid fa-eye" id="togglePassword"></i>
+
+        </div>
 
                <button class="login-btn" type="submit" id="loginBtn">
                    Login
@@ -166,6 +173,28 @@ function handleCredentialResponse(response) {
 
     document.getElementById("googleForm").submit();
 }
+</script>
+<script>
+const toggle = document.getElementById("togglePassword");
+const password = document.getElementById("password");
+
+toggle.onclick = function(){
+
+    if(password.type==="password"){
+
+        password.type="text";
+
+        toggle.classList.replace("fa-eye","fa-eye-slash");
+
+    }else{
+
+        password.type="password";
+
+        toggle.classList.replace("fa-eye-slash","fa-eye");
+
+    }
+
+};
 </script>
 </body>
 </html>
