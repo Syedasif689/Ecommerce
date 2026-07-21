@@ -120,7 +120,7 @@ body {
     font-family: 'Segoe UI', sans-serif;
     background:
         linear-gradient(rgba(0, 0, 0, .55), rgba(0, 0, 0, .55)),
-        url("../images/shopping-bg.jpg");
+        url("../images/shopping-bg.png");
     background-size: cover;
     background-position: center;
 }
